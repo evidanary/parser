@@ -1,0 +1,582 @@
+id,section,description,command
+0MAC# OSX#,MAC# OSX#,Your public key location,~/.ssh/id_rsa.pub
+1MAC# OSX#,MAC# OSX#,Switch between different windows of same application,Cmd + ~
+2MAC# OSX#,MAC# OSX#,"Command-Shift-4, then select an area: Take a screenshot of an area and save it as a file on the desktop",mvim /etc/resolv.conf
+3MAC# OSX#,MAC# OSX#,dscacheutil -flushcache,""
+4MAC# OSX#,MAC# OSX#,Unix host file location -,cat /etc/hosts
+5MAC# OSX#,MAC# OSX#,iTerm,Cmd + Shift + D
+6MAC# OSX#,MAC# OSX#,Split Vertically,Cmd + D
+7MAC# OSX#,MAC# OSX#,Navigate across Panes,Cmd + [ or Cmd + ]
+8MAC# OSX#,MAC# OSX#,Full screen an app,Cmd + Enter
+9MAC# OSX#,MAC# OSX#,Homebrew brew,brew info <name>
+10MAC# OSX#,MAC# OSX#,switch to a different version,brew switch vim 7.4.488
+11MAC# OSX#,MAC# OSX#,what formulas are available / search for old version,brew search postgresql
+12Machine Learning#,Machine Learning#,Linear regression is good if you are trying to predict a continuous value,""
+13Machine Learning#,Machine Learning#,Logistic regression is good if you are trying to predict a class (classification),"Logistic regression has a sigmoid function definition, this helps in classification"
+14Machine Learning#,Machine Learning#,Like Gradient Descent there are more powerful algos called conjugate gradient and LBFGS,They usually don't require you to set a learning rate
+15Machine Learning#,Machine Learning#,TF - Term Frequency - how often does a word appear in a document,IDF - Inverse Document Frequency - how rare is the word across documents
+16JSON Tools#,JSON Tools#,Pretty Print JSON on the command line (or json-pretty or jsonp alias),"echo '{""a"" : ""b""}' | python -m json.tool"
+17GPG#,GPG#,Sticky bit on directories,Another important enhancement involves the use of the sticky bit on directories. A directory with the sticky bit set means that only the file owner and the superuser may remove files from that directory.
+18GPG#,GPG#,My public key for gpgp encryption,http://pgp.mit.edu/pks/lookup?op=get&search=0x4780F919F3B375A8
+19GPG#,GPG#,gpg verify signature,*remember to add the public key of the publisher to the key ring (Good Signature = GOOD!!)
+20GPG#,GPG#,gpg add public key to keyring,gpg --import public_key.asc
+21GPG#,GPG#,gpg encrypt a file,gpg --output sparkle_pony.gpg --encrypt --recipient kevin.mahaffey@flexilis.com ~/sink/password.txt
+22GPG#,GPG#,gpg public keys of people in the world,http://pgp.mit.edu/
+23GPG#,GPG#,"zGPG encrypt file with passphrase- this will create filname.gpg, anyone can decrypt it as long as they know the passphrase (they dont need your public key)",gpg -c filename
+24GPG#,GPG#,GPG Create a new key,gpg --gen-key
+25GPG#,GPG#,GPG list keys,gpg --list-keys
+26GPG#,GPG#,GPG Export public key,gpg --armor --export yash@lookout.com
+27GPG#,GPG#,To encrypt a file - for stdout dont use --output,gpg --output doc.gpg --encrypt --recipient blake@cyb.org doc
+28GPG#,GPG#,To decrypt a file - for stdout dont use --output doc,gpg --output doc --decrypt doc.gpg
+29GPG#,GPG#,to create a key:,"prints out the public key for User Name to the command line, which is only semi-useful"
+30GPG#,GPG#,to export a private key:,"It's pretty much like exporting a public key, but you have to override some default protections. There's a note (*) at the bottom explaining why you may want to do this."
+31GPG#,GPG#,to import a public key:,"This adds the public key in the file ""public.key"" to your public key ring."
+32GPG#,GPG#,to import a private key:,"This adds the private key in the file ""private.key"" to your private key ring. There's a note (*) at the bottom explaining why you may want to do this."
+33GPG#,GPG#,to delete a public key (from your public key ring):,"NOTE! If there is a private key on your private key ring associated with this public key, you will get an error! You must delete your private key for this key pair from your private key ring first."
+34GPG#,GPG#,to delete an private key (a key on your private key ring):,This deletes the secret key from your secret key ring.
+35GPG#,GPG#,To list the keys in your public key ring:,gpg --list-keys
+36GPG#,GPG#,To list the keys in your secret key ring:,gpg --list-secret-keys
+37GPG#,GPG#,"To generate a short list of numbers that you can use via an alternative method to verify a public key, use:",This creates the file fingerprint with your fingerprint info.
+38GPG#,GPG#,"To encrypt data, use:","An interesting side note, I encrypted the preemptive kernel patch, a file of 55,247 bytes, and ended up with an encrypted file of 15,276 bytes."
+39GPG#,GPG#,"To decrypt data, use:","NOTE: when I originally wrote this cheat sheet, that's how it worked on my system, however it looks now like ""gpg -d mydata.tar.gpg"" dumps the file contents to standard output. The working alternative (worked on my system, anyway) would be to use ""gpg -o outputfile -d encryptedfile.gpg"", or using mydata.tar.gpg as an example, I'd run ""gpg -o mydata.tar -d mydata.tar.gpg"". Alternatively you could run something like ""gpg -d mydata.tar.gpg > mydata.tar"" and just push the output into a file. Seemed to work either way."
+40GPG#,GPG#,"Ok, so what if you're a paranoid bastard and want to encrypt some of your own files, so nobody can break into your computer and get them? Simply encrypt them using yourself as the recipient.","--edit-key allows you do do an assortment of key tasks, see http://www.gnupg.org/gph/en/manual/r899.html"
+41UNIX#,UNIX#,generate ssh keys,https://help.github.com/articles/generating-ssh-keys/
+42UNIX#,UNIX#,Show calendar,cal 2015
+43UNIX#,UNIX#,Geolocate an IP Address,curl ipinfo.io/<ipaddress>
+44UNIX#,UNIX#,Compare/diff directories,diff --suppress-common-lines -y <(cd path_to_dir1; find .|sort) <(cd path_to_dir2; find .|sort)
+45UNIX#,UNIX#,Case insensitive search in less,-i
+46UNIX#,UNIX#,Less go to end of file and follow (like tail),Shift + F
+47UNIX#,UNIX#,unix shell loops,"for i in {1..100} ; do echo ""dev.lsb.argle:857|c"" | nc -w 1 -u -v graphite0.dev.0.aws.mylookout.com 8125 ; done"
+48UNIX#,UNIX#,Send a packet over udp using Netcat,"(echo ""GET / HTTP/1.0"" ; echo ""Host: example.com"" ; echo) | nc -w 1 -v example.com 80"
+49UNIX#,UNIX#,Receive packets over udp/tcp on port 8125,nc -l -v 8125
+50UNIX#,UNIX#,Ngrep,sudo ngrep -W byline -d en3 . udp port 8125 > /tmp/capture.txt
+51UNIX#,UNIX#,GNU Screen copy mode,"Ctrl + A, ESC, Use Arrow Keys"
+52UNIX#,UNIX#,Find the number of fields/number of columsn/ number of tabs in a line,cat /tmp/delme.txt |  egrep -o -E $'\t' | wc -l  == wc -l /tmp/delme.txt * cat /tmp/delme.txt | head -1 |  egrep -o -E $'\t' | wc -l
+53UNIX#,UNIX#,Search and display only matched regular expression case insensitive,"cat /tmp/delme | egrep -io ""execute_count=\d+$"" | uniq"
+54UNIX#,UNIX#,Find the number of columns for the entire file (should always return one value),"cat ~/Downloads/tmo_2013_10_valid.csv | sed 's/[^\|]//g' | awk '/./ {print NR, length }' | cut -d ' ' -f2 | uniq"
+55UNIX#,UNIX#,Find the number of columns,"awk -F "","" '{print NF}' uniqMovie.csv | head -1"
+56UNIX#,UNIX#,shell date with hours minutes and seconds,date +%Y_%m_%d_%H%M%S
+57UNIX#,UNIX#,shell date diff,"date --date=""222 days ago"" +%Y%m%d"
+58UNIX#,UNIX#,Install GNU Parallel,(wget -O - pi.dk/3 || curl pi.dk/3/) | bash
+59UNIX#,UNIX#,GNU Parallel,"cat listofthings.txt | parallel --max-procs=8 --group 'echo ""Thing: {}""'"
+60UNIX#,UNIX#,System Level Global Variable in Unix (like export var=xx but for all users): add to file,/etc/environment
+61UNIX#,UNIX#,Create a passwordless sudo access for a user: in /etc/sudoers,yranadive         ALL = (ALL) NOPASSWD: ALL
+62UNIX#,UNIX#,Create a passwordless ssh access to your machine:,file in ~/.ssh/
+63UNIX#,UNIX#,Rsync copy files from local server to remote,rsync -avzhe ssh backup.tar --exclude='.git' root@192.168.0.100:/backups/
+64UNIX#,UNIX#,Rsync copy files from remote server to local,rsync -avzhe ssh backup.tar --exclude='.git' root@192.168.0.100:/backups/
+65UNIX#,UNIX#,List Ip Tables,sudo iptables -L
+66UNIX#,UNIX#,Add someone to sudoers file,visudo
+67UNIX#,UNIX#,Log of mail sent from a server using the mail command,tail -f /var/log/mail.log
+68UNIX#,UNIX#,Generate random number,echo $RANDOM
+69UNIX#,UNIX#,Get the last part of the file path,basename /home/yash/xman.h <.h - to get xman | empty otherwise>
+70UNIX#,UNIX#,list details of file/folder (stuff you see in ls),stat /tmp
+71UNIX#,UNIX#,tcpdump take dump of packets tcp,http://www.danielmiessler.com/study/tcpdump/
+72UNIX#,UNIX#,Crontab Cron,*/x * * * * /path/to/script
+73UNIX#,UNIX#,Power top,top - show list of processes - Press F to sort
+74UNIX#,UNIX#,top Dump output of top to stdout once,top -b -n 1
+75UNIX#,UNIX#,top Monitor certain pids,"top -p <pid1>, <pid2>"
+76UNIX#,UNIX#,top monitor processes for a user,top -U username
+77UNIX#,UNIX#,nmon - show list of processes,""
+78UNIX#,UNIX#,Print all open file handles on a file,sudo lsof name/of/file
+79UNIX#,UNIX#,Zsh unix search command history,"Ctrl + r , type the keyword and keep hitting Ctrl + r to go futher in the search"
+80UNIX#,UNIX#,Shell script echo commands as your execute every line,#!/bin/bash -x
+81UNIX#,UNIX#,Kill only pids containing a string,pkill -f <string>
+82UNIX#,UNIX#,Shell script exit when one command in a script fails,#!/bin/bash -e
+83UNIX#,UNIX#,Create file of size x bytes (binary),dd if=/dev/zero of=/path/to/desired/big/file count=1024
+84UNIX#,UNIX#,Run last command with sudo,sudo !!
+85UNIX#,UNIX#,Secure copy scp multiple files from a remote host,"scp your_username@remotehost.edu:~/foo_00{1..6} . # copies foo_001, foo_002, fo.., foo_006"
+86UNIX#,UNIX#,Split a file in to multiple files,tar -cvf - <stuff to put in archive> | split --bytes=1m --suffix-length=4 --numeric-suffix - myarchive.tar.
+87UNIX#,UNIX#,Merge the output of split - multiple files,cat arch/dw-master.tar.* | tar xvf -
+88UNIX#,UNIX#,Amount of RAM on a box in gigabytes,free -mg
+89UNIX#,UNIX#,paste the argument of the previous command,ESC + .
+90UNIX#,UNIX#,Unix signals sighup sigint sigkill,"Ctrl-Z sends a TSTP signal (SIGTSTP); by default, this causes the process to suspend execution."
+91UNIX#,UNIX#,SIGINT Ctrl-C,"Suspends a process. This too, can be handled, ignored or blocked. Since it does not terminate the process, the process can be resumed by sending a SIGCONT signal. This signal can be generated by pressing Ctrl+Z. (Sidenote: Ctrl+Z stands for substitute character which indicates End-of-File in DOS)"
+92UNIX#,UNIX#,find,find . -path '.*/config.xml' | grep chunker_
+93UNIX#,UNIX#,remove files older than 5 days on unix,find /my_current_directory -mtime +5 -type f -delete
+94UNIX#,UNIX#,print files modified in the last 24 hours,find /directory_path -type f -mtime -1 -print
+95UNIX#,UNIX#,monitor cpu memory and other shit,nmon
+96UNIX#,UNIX#,Free resident set size (rss res) memory on a server,free -g
+97UNIX#,UNIX#,unix linux ubuntu get stats on what the pid is doing,strace -p PID
+98UNIX#,UNIX#,Count number of forks a application makes,sudo strace -o /tmp/strace.log -fFv  python -m SimpleHTTPServer 8283
+99UNIX#,UNIX#,Sum numbers,numbers | awk '{s+=$0} END {print s}'
+100UNIX#,UNIX#,awk print lines from line number x onwards,awk 'NR > x' name/of/file
+101UNIX#,UNIX#,print limit of open file handles,ulimit -a
+102UNIX#,UNIX#,dpkg -l list all packages ubuntu,""
+103UNIX#,UNIX#,which user are you logged in as,whoami
+104UNIX#,UNIX#,what users are logged in the box,who
+105UNIX#,UNIX#,List open ssh connections to a server,Try netstat -atn | grep ':22'
+106UNIX#,UNIX#,ssh usually happens on port 22,""
+107UNIX#,UNIX#,Get all host names of a particular server,nslookup source.corp.lookout.com
+108UNIX#,UNIX#,Create simple http server on a port,python -m SimpleHTTPServer 8000
+109UNIX#,UNIX#,Set up ssh tunnel from localhost:8000 to remote:8888,ssh -N root@198.199.80.137 -L 8000:localhost:8888
+110UNIX#,UNIX#,Syslog location,cat /var/log/syslog
+111UNIX#,UNIX#,Get encoding of a file,file -i name_of_file
+112UNIX#,UNIX#,ID of the user as recognized by the system,id root
+113UNIX#,UNIX#,Get user and group of the user,id -Gn username
+114UNIX#,UNIX#,List users that can ssh,cat /etc/ssh/sshd_config
+115UNIX#,UNIX#,Mount a directory on remote,sudo mount ServerIP:/folder/already/setup/to/be/shared /loca/mount/point/directory
+116UNIX#,UNIX#,To make a permanent mount add the following to /etc/fstab,"servername:dir /mntpoint nfs rw,hard,intr 0 0"
+117UNIX#,UNIX#,List all mounted devices (< partition >< mount point >< file system >< mount options >< dump >< fsck order >),cat /etc/mtab
+118UNIX#,UNIX#,List all mounted/unmounted devices,cat /etc/fstab
+119UNIX#,UNIX#,Show devices that use this host,showmount -a
+120UNIX#,UNIX#,NFS,"export, exportfs"
+121UNIX#,UNIX#,check if a port is open on a remote server,nc -vz -w 2 database-box-1.internal.clever.com 27017
+122UNIX#,UNIX#,Add sudo user,user ALL=(ALL) ALL
+123UNIX#,UNIX#,list all the users in unix,cat /etc/passwd
+124UNIX#,UNIX#,make sub directories when necessary,mkdir -p path/to/directory
+125UNIX#,UNIX#,export a env variable,export PATH=$PATH:/opt/bin:/usr/local/bin:$HOME/bin
+126UNIX#,UNIX#,show environment variables,env
+127UNIX#,UNIX#,Export a environment variable to all user,modify /etc/profile
+128UNIX#,UNIX#,Print name of shell you are using,echo $0
+129UNIX#,UNIX#,Get the current pid of the session,$$
+130UNIX#,UNIX#,GZIP TAR - compress a directory,tar -zcvf dest_file.tar.gz /folder/to/compress
+131UNIX#,UNIX#,To restore file,tar -zxvf dest_file.tar.gz [file/path/to/decompress]
+132UNIX#,UNIX#,Generate a random password 16 characters,pwgen 16
+133UNIX#,UNIX#,Generate a random string in ruby of length password generate password,"(0...8).map{ [('a'..'z').to_a,('A'..'Z').to_a,(0..9).to_a].flatten[rand(62)] }.join"
+134UNIX#,UNIX#,Create symlink symbolic link,ln -s {/path/to/file-name} {link-name}
+135UNIX#,UNIX#,List all open ports,netstat -lnptu
+136UNIX#,UNIX#,Set unix path environment variable,export GRADLE_HOME=/Users/yasha/Software/gradle-1.1
+137UNIX#,UNIX#,Create User / password,passwd tom
+138UNIX#,UNIX#,Add existing user to a group,usermod -G grpname uname
+139UNIX#,UNIX#,in ~/.bashrc,alias ls='ls -lartSh'
+140UNIX#,UNIX#,Find the unix linux distro operating system,lsb_release -a
+141UNIX#,UNIX#,Find the if 64 or 32 bit,uname -a
+142UNIX#,UNIX#,Find the,cat /etc/group
+143UNIX#,UNIX#,Change owner and group recursive,chown -R yash:datateam Talend/
+144UNIX#,UNIX#,Change Permission Recursive,"chmod -R 775 Talend where 775 is (user, group, other)"
+145UNIX#,UNIX#,Show the Proceslist,"ps -ef | grep -i ""yash"""
+146Grep#,Grep#,grep -e pattern(the regexp pattern),grep -o pattern (display the matching pattern only and NOT the entire line)
+147Grep#,Grep#,Octal Dump,cat file | od -cb
+148Grep#,Grep#,FTP,ftp ftp://username:password@ftp.host.com
+149Grep#,Grep#,Get IP Address of the current system,/sbin/ifconfig | less
+150Grep#,Grep#,Get IP address,ip -f inet a | awk '/inet / { print $2 }' or ifconfig | sed -n 's/.*inet addr:\([0-9.]\+\)\s.*/\1/p'
+151Grep#,Grep#,UNIX COMMENT:,COMMENT
+152Grep#,Grep#,Change Password,passwd
+153Grep#,Grep#,the file encoding,file <nameoffile> or file -I <nameoffile>
+154Grep#,Grep#,Find files,find -name 'ib_logfile0'
+155Grep#,Grep#,Find in files text,"find . -exec grep ""www.athabasca"" '{}' \; -print"
+156Grep#,Grep#,Find on all disks,find / -name file.extension
+157Grep#,Grep#,Find files using regular expressions: ./chunker/lastSuccessful tree in .,"find -regex "".*chunker.*/lastSuccessful"" | xargs grep -r -i error"
+158Grep#,Grep#,Inline calculator in shell,"echo ""2/3"" | bc"
+159Grep#,Grep#,Linux Directory Structure,http://linuxcommand.org/lts0040.php#root
+160Grep#,Grep#,Show the bottom of the log file and refresh,tail -f filename
+161Grep#,Grep#,To get the nth line of a file,head -45 foo.txt | tail -1
+162Grep#,Grep#,Convert DOS to UNIX dos2unix file csv,tr '\r' '\n' < delme.csv > samasource.csv
+163Grep#,Grep#,Daemon services using init.d,sudo service name_of_serive start/stop/restart
+164Grep#,Grep#,Daemon Services in Ubuntu,sudo stop name_of_service
+165Grep#,Grep#,upstart list all services,initctl list
+166Grep#,Grep#,Send mail when command finishes:  2,find and replace in Mac OSX: sed -i '' 's/source/target/g' nameoffile
+167Nginx#,Nginx#,default conf file location,vim /usr/local/etc/nginx/nginx.conf
+168Nginx#,Nginx#,start server,nginx
+169Nginx#,Nginx#,stop server,nginx -s stop
+170Nginx#,Nginx#,reload config,nginx -s reload
+171Mysql#,Mysql#,select in to outfile /  write to file,select * into outfile '/tmp/result.txt' from table;
+172Mysql#,Mysql#,show running queries,show full processlist;
+173Mysql#,Mysql#,show status of the innodb engine with individual threads,show engine innodb status
+174Mysql#,Mysql#,mysql data is stored in /data/mysql,""
+175Mysql#,Mysql#,Mysql Backup Percona innobackupex xtrabackup,innobackupex --user= --password= --parallel=20 --no-lock /mnt/das0/backup_20131003/
+176Mysql#,Mysql#,Mysql get the bin log,mysqlbinlog --base64-output=DECODE-ROWS --verbose <xxx-bin.xxxxx>  > /tmp/binlog.txt
+177Mysql#,Mysql#,Mysql admin,CREATE USER 'jeffrey'@'localhost' IDENTIFIED BY 'mypass';
+178Mysql#,Mysql#,Mysql skip a transaction,SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1;
+179Mysql#,Mysql#,Create mysql super user,GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' WITH GRANT OPTION;
+180Mysql#,Mysql#,Grant particular privilege to a user,GRANT SELECT ON flexd_production.users TO 'support'@'%';
+181Mysql#,Mysql#,Show grant privileges on a user,show grants for username
+182Mysql#,Mysql#,Get list of mysql users,select * from mysql.user;
+183Mysql#,Mysql#,Restart mysql server : sudo /etc/init.d/mysqld restart,""
+184Mysql#,Mysql#,Mysql Flush Permissions Privileges,flush privileges;
+185Mysql#,Mysql#,Query to get the largest tables on the database,LIMIT  100;
+186Mysql#,Mysql#,Create table with key inline,....
+187Mysql#,Mysql#,mysql create user,CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+188Mysql#,Mysql#,mysql grant super user privileges,GRANT ALL PRIVILEGES on *.* with GRANT OPTION;
+189Mysql#,Mysql#,mysql reset user password,SET PASSWORD FOR 'jeremy_linden'@'%' = PASSWORD('cleartext password');
+190Mysql#,Mysql#,db-data: ETL|aw|mp|ip|mysql|royalty - local backups on shared drive (/cifs/db-fs1/db-databak),mysql|ETL|archieve|aw|data_pulls|ip|leads|mp|royalty - remote backups(/var/db_backup) on proactive
+191Mysql#,Mysql#,Mysql copy table from one schema to other without locking the source database - use --single-transaction,mysqldump -h database2 -uyash -ppassword c_prod ecp_duplicates_domains | mysql -h database -uroot -ppassword c_prod
+192Mysql#,Mysql#,Mysql move table from one schema to other,RENAME TABLE old_db.table TO new_db.table;
+193Mysql#,Mysql#,Mysql dump the functions and stored procedures only,mysqldump --routines --no-create-info --no-data --no-create-db --skip-opt <database> > outputfile.sql
+194Mysql#,Mysql#,MYSQL Commands,mysqldump --quick --single-transaction --host=database.companyname.local -uyash -ppassword c_prod iso_3166_2 | mysql -h database -uroot -ppassword c_prod
+195Mysql#,Mysql#,Backup mysql table in a file,mysqldump --opt --quick --single-transaction --host=database.companyname.local -uyash -ppassword c_active master_company | gzip --fast > /tmp/c_active_master_company_20130318
+196Mysql#,Mysql#,Copy routines only of one table to another server,mysqldump --no-data=true --add-drop-table=false --no-create-info --routines --host=database.companyname.local -uyash -ppassword dq | mysql -h database -uroot -ppassword dq
+197Mysql#,Mysql#,Import csv from one server to another,"mysqlimport -h db-data2 --verbose --local --default-character-set=utf8 --columns=""sic,industry,sub_industry""  --fields-terminated-by="",""  -uyash -ppassword c_active sic_lookup_production.csv"
+198Mysql#,Mysql#,To empty table before importing file,"mysqlimport -h database.companyname.local --verbose --local --default-character-set=utf8 --columns=""sid,company_cleaned""  --fields-terminated-by=""\t"" --delete -uyash -ppassword c_prod /Users/yasha/sink/gold_list.tsv"
+199Mysql#,Mysql#,Import csv when fields have commas in them,"mysqlimport --verbose --local --default-character-set=utf8 --fields-terminated-by="","" --fields-optionally-enclosed-by=""\"""" -uroot -ppassword c_source dnbcompanies_input.csv"
+200Mysql#,Mysql#,To see warnings,"mysql -h db-data2 -uyash -ppassword --execute=""LOAD DATA INFILE '~/sink/eol_stock_ticker_201302.tsv' INTO TABLE eol_stock_ticker_201302 FIELDS TERMINATED BY '\t'; SHOW WARNINGS;"""
+201Mysql#,Mysql#,MySQL Rename column,alter table tblname change col_old_name  col_new_name varchar(50) DEFAULT NULL
+202Mysql#,Mysql#,MYSQL MAKE COPY OF A TABLE,INSERT recipes_new SELECT * FROM production.recipes;
+203Mysql#,Mysql#,show variables like '%slow%'; -- shows you variables on the mysql server,show variables like '%time_zone%'; -- timezone
+204RVM#,RVM#,Use a particular ruby and gemset,rvm use version@gemset
+205RVM#,RVM#,rvm set default,rvm use  ruby-2.1.2 --default
+206RVM#,RVM#,Put this line in your ~/.zshrc,"[[ -s ""$HOME/.rvm/scripts/rvm"" ]] && . ""$HOME/.rvm/scripts/rvm"""
+207RVM#,RVM#,On ubuntu boxes,source ~/.rvm/scripts/rvm
+208RVM#,RVM#,Use a ruby version with a gemset version (create if not exists),rvm use 2.1.1@teddy --create
+209RVM#,RVM#,List rvm gemsets,rvm gemset list/use
+210jquery#,jquery#,Selector for class,"$("".class"")"
+211jquery#,jquery#,Selector for id,"$(""#id"")"
+212C++ Build Make Packages#,C++ Build Make Packages#,./configure,Usually the workload is stored in a makefile
+213Storm#,Storm#,"topology.message.timeout.secs = The maximum amount of time given to the topology to fully process a message emitted by a spout. If the message is not acked within this time frame, Storm will fail the message on the spout.",http://www.michael-noll.com/blog/uploads/Storm_example_of_a_running_topology.png
+214Storm#,Storm#,To run a topology on the production cluster,"storm jar storm-starter.jar com.lookout.data.storm.TestTopology /home/yranadive/config.settings.properties ""settings-topo"""
+215Storm#,Storm#,To kill a topology,storm kill yash-test
+216Storm#,Storm#,Log directory for workers is,/usr/local or ~/apache-storm-0.9.1-incubating/logs
+217Storm#,Storm#,Logviewer,http://qa-storm-data.flexilis.net:8000/log?file=nimbus.log&tail=1000&grep={regexp}
+218Storm#,Storm#,Logviewer get worker node ids (usually ~of type 67XX),http://qa-storm-data.flexilis.net:8000/log?file=nimbus.log&tail=10000&grep=Setting%20new%20assignment%20for%20topology%20id
+219Storm#,Storm#,Storm.local.dir = /storm,""
+220GRADLE#,GRADLE#,Default tasks:,gradle jar
+221GRADLE#,GRADLE#,Dependency tree,gradle dependencyInsight --dependency guava
+222NTS#,NTS#,Before writing a functin always always write what the desired output is. This will help you focus on what the function is,""
+223Text Wrangler#,Text Wrangler#,Shift Left : Command + [,Change shift magnitude in preferences > Editor Defaults
+224webgl# threejs# three.js#,webgl# threejs# three.js#,Scene 	<- Mesh 	<- geometry,"Each mesh can have position.x,y,z"
+225GIT#,GIT#,GITHUB - WEB UI Search Commands,"Matches code where ""octocat"" appears in the file contents"
+226GIT#,GIT#,octocat in:path,"Matches code where ""octocat"" appears in the path name"
+227GIT#,GIT#,"octocat in:file,path","Matches code where ""octocat"" appears in the file contents or the path name"
+228GIT#,GIT#,GITHUB - make git push not ask you username and password everytime,git rebase --continue  ---->look in to this
+229GIT#,GIT#,git remove a file from the index (will undo addition to the index),git reset HEAD <file>
+230GIT#,GIT#,git show commits with abbreviated hash,"git log --pretty=format:""%h %an %s"" | grep e117f40"
+231GIT#,GIT#,git show commits for a branch,git log --first-parent --no-merges
+232GIT#,GIT#,git show file names that have been modified,git log --name-status
+233GIT#,GIT#,git config -l,git config remote.origin.url git@github.com:your_username/your_project.git
+234GIT#,GIT#,Git Squash Commit (prefix every line to squash with s),git rebase -i master
+235GIT#,GIT#,Git show remotes,git remote -v show
+236GIT#,GIT#,Git ammend a previous commmit,git commit --amend
+237GIT#,GIT#,Git remote add a new upstream,git remote add upstream yourrepo.git
+238GIT#,GIT#,Git branches,https://github.com/Kunena/Kunena-2.0/wiki/Create-a-new-branch-with-git-and-manage-branches
+239GIT#,GIT#,Git create a branch,git branch name_of_branch
+240GIT#,GIT#,Git rename a branch,git branch -m old_branch new_branch
+241GIT#,GIT#,Git push to branch,git push origin <branch name>
+242GIT#,GIT#,Git Delete Branch,git branch -D <branch name>
+243GIT#,GIT#,Git delete branch from remote,git push origin :newfeature
+244GIT#,GIT#,Git do a diff with HEAD,git diff HEAD
+245GIT#,GIT#,Git diff with a remote repo,git diff DATA-1724 gerrit/master
+246GIT#,GIT#,Git do a diff with a particular branch,git difftool somebranch:UNREADME otherbranch:README
+247GIT#,GIT#,Git diff with a previous commit,git diff 5cdfs6ed HEAD index.html
+248GIT#,GIT#,Git reset to head,git reset --hard HEAD
+249GIT#,GIT#,Git checkout previous commit,git checkout 1dcf2d
+250GIT#,GIT#,Git undo changes to a file not staged for commit,git checkout -- filename
+251GIT#,GIT#,Git merge branch to master,git merge branchname
+252GIT#,GIT#,Git show list of branches,git branch
+253GIT#,GIT#,Git Create branch,git branch branchname
+254GIT#,GIT#,Git Remove a branch from local,git branch -D branchname
+255GIT#,GIT#,Git Delete branch from github,git push origin --delete <branchName>
+256GIT#,GIT#,Git reset to a previous state,git reset --hard to reset to a previous state. Use the git-reflog command to find the SHA-1 of the previous state and then reset to it.
+257GIT#,GIT#,Git merge only certain files from a separate branch,git checkout branchname pathtofile1 pathtofile2
+258GIT#,GIT#,Git revert to a previous commit,http://stackoverflow.com/questions/4114095/git-revert-to-previous-commit-how
+259GIT#,GIT#,Git stash,git stash
+260GIT#,GIT#,To list the stash,git stash list
+261GIT#,GIT#,Git show log with file names that changed,git log --stat
+262GIT#,GIT#,Git show changes for a specific branch only,git log master..
+263GIT#,GIT#,Git cat a previous version,git show HEAD:name_of_file
+264GIT#,GIT#,TO apply your changes,git stash --apply
+265GIT#,GIT#,Git show history of the file,gitk [filename]
+266GIT#,GIT#,How to setup a new repo on gerrit,3.
+267html#,html#,Add javascript to HTML,<script type='text/javascript' src='jquery.min.js'></script>
+268html#,html#,Add CSS to HTML,"<link rel=""stylesheet"" href=""mystyle.css"">"
+269html#,html#,Input Element,"<input class=""typeahead"" id=""token"" type=""text"" placeholder=""Language/Region"">"
+270html#,html#,Button,"<button id=""copy-button"" data-clipboard-text=""Copy Me!"" title=""Click to copy me."">Copy to Clipboard</button>"
+271css#,css#,selector for class,.classname {}
+272css#,css#,selector for id,#id_of_element {}
+273css#,css#,cyan RGB Values,Deep Blue RGB Values
+274javascript#,javascript#,Create prototype function,}
+275javascript#,javascript#,Local variable scope,}
+276javascript#,javascript#,Append to array,"fruits.push(""Kiwi"");"
+277JAVA# JAR#,JAVA# JAR#,Create java jar with dependencies using pom/maven,https://gist.github.com/yash-ranadive/60152cbf0afd2351ae37
+278JAVA# JAR#,JAVA# JAR#,Run a class (which has main method) in a jar,java -cp jar-file.jar name.of.package.classname
+279JAVA# JAR#,JAVA# JAR#,JAVA THREAD DUMP,jstack pid
+280JAVA# JAR#,JAVA# JAR#,JAVA Memory allocation and heap,jmap -histo pid
+281JAVA# JAR#,JAVA# JAR#,JAVA maven mvn,mvn clean install
+282JAVA# JAR#,JAVA# JAR#,Maven clean and force update of dependencies,mvn clean install -U
+283JAVA# JAR#,JAVA# JAR#,Maven more verbose outuput,mvn -X
+284JAVA# JAR#,JAVA# JAR#,ant# ant build a jar,ant
+285JAVA# JAR#,JAVA# JAR#,jar see contents,jar -tf nameofjar.jar
+286Hbase#,Hbase#,Create table,"create 't1', 'f1'"
+287Hbase#,Hbase#,Drop table,drop 'security'
+288Hbase#,Hbase#,Put value,"put 'tbl_name', 'row', 'column', 'value'"
+289HIVE#,HIVE#,Describe/show partition information,"describe formatted mixpanel_dwa_raw partition (year=2015,month=03,day=15);"
+290HIVE#,HIVE#,HIVE CLI settings,set hive.cli.print.current.db=true;
+291HIVE#,HIVE#,Substring,"select substr(string|binary A, int start, int len) from table;"
+292HIVE#,HIVE#,JSON Parsing,"SELECT get_json_object(theft_alerts.event_data, '$.related[0].meta.correlator') from theft_alerts limit 2;"
+293HIVE#,HIVE#,"CREATE VIEW theft_alerts_removed_sim(type, old_phone_number)",WHERE event_type='removed_sim';
+294HIVE#,HIVE#,Hive parameters params,http://docs.hortonworks.com/HDPDocuments/HDP1/HDP-1.2.1/ds_Hive/language_manual/configproperties.html#ConfigurationProperties-Locking
+295HIVE#,HIVE#,hive Rename table,ALTER TABLE table_name RENAME TO new_table_name
+296HIVE#,HIVE#,Hive CLI log file location,/tmp/nameofuser
+297HIVE#,HIVE#,Hive regex like,select * from table where field RLIKE 'REGEX'
+298HIVE#,HIVE#,Check version of hive client running,"ps -aux | grep -i ""hive"""
+299HIVE#,HIVE#,Change the query mapreduce to log in debug mode,SET yarn.app.mapreduce.am.log.level=DEBUG;
+300HIVE#,HIVE#,Show column names when querying table,set hive.cli.print.header=true;
+301HIVE#,HIVE#,Drop/Insert into partition/ADD partition,INSERT INTO tblename PARTITION (dt='2014-01-01');
+302HIVE#,HIVE#,Add partition to external table in hive,ALTER TABLE mixpanel_dashboard_events ADD PARTITION (dt='2014-01-29') location 'hdfs:///asfd';
+303HIVE#,HIVE#,Load Data Local Inpath Hive,LOAD DATA LOCAL INPATH '/tmp/load.txt' OVERWRITE INTO TABLE test;
+304HIVE#,HIVE#,Load Data from HDFS in to Hive,LOAD DATA [LOCAL] INPATH '/user/yranadive/DashboardOpened.events-2014-01-13.csv' OVERWRITE INTO TABLE mixpanel_events PARTITION (ds='2014-01-13');
+305HIVE#,HIVE#,add no drop to table definition,ALTER TABLE TABLE_NAME ENABLE/DISABLE NO DROP CASCADE;
+306HIVE#,HIVE#,Describe function,describe function extended function_name
+307HIVE#,HIVE#,Show functions,show functions
+308HIVE#,HIVE#,Add jars,add jar /path/to/jar/on/local
+309HIVE#,HIVE#,Add functions,CREATE TEMPORARY FUNCTION nvl AS 'com.nexr.platform.hive.udf.GenericUDFNVL';
+310HIVE#,HIVE#,Set the property to get the headers / column names in a query result,set hive.cli.print.header=true
+311HIVE#,HIVE#,Hive Query Log on the client,on dw-utility in /tmp/jenkins/hive_job_log_*
+312HIVE#,HIVE#,Hive data types,SELECT foo FROM union_test;
+313HIVE#,HIVE#,{0:1},{1:10.0}
+314HIVE#,HIVE#,describe test;,"category  map<string,int>"
+315HIVE#,HIVE#,select * from test;,ph3    3000    700
+316Protobuf#,Protobuf#,Compile protocol buffer- code generate,protoc -I=. --java_out=. examples.proto
+317Protobuf#,Protobuf#,Protocol Buffer message types,https://developers.google.com/protocol-buffers/docs/proto
+318Protobuf#,Protobuf#,Protocol Buffers primitive support of int and string only,""
+319Markdown#,Markdown#,Markdown :https://help.github.com/articles/markdown-basics,https://help.github.com/articles/github-flavored-markdown
+320Markdown#,Markdown#,link,some text [some link](http://lab.hakim.se/reveal-js/#/) some text
+321Markdown#,Markdown#,image,![Alt text](/path/to/img.jpg)
+322Markdown#,Markdown#,Line Break,2 spaces at the end of a line
+323Markdown#,Markdown#,"Heading1, Heading2, Heading3, h1, h2, h3","#,##,###"
+324Markdown#,Markdown#,"Bold, Italics","*bold text*, **italic text**"
+325Jenkins#,Jenkins#,Delete a job using curl,"curl ""http://dw-utility0:8080/job/shovel_dim_platform/doDelete"" -X POST -H ""Cookie: JSESSIONID.xxx; screenResolution=1440x900"" -H ""Origin: http://dw-utility0:8080"" -H ""Accept-Encoding: gzip,deflate,sdch"" -H ""Host: dw-utility0:8080"" -H ""Accept-Language: en-US,en;q=0.8"" -H ""User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36"" -H ""Content-Type: application/x-www-form-urlencoded"" -H ""Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"" -H ""Cache-Control: max-age=0"" -H ""Referer: http://dw-utility0:8080/job/shovel_dim_platform/"" -H ""Connection: keep-alive"" -H ""Content-Length: 0"""
+326IRC#,IRC#,/join #data to join data room,/nick change nickname
+327curl#,curl#,Get response times of a server using curl,"for i in {1..3};do curl -s -w ""%{time_total}\n"" -o /dev/null http://www.google.com/; done;"
+328Rails-vim#,Rails-vim#,Preview file in browser,:Rpreview
+329Rails-vim#,Rails-vim#,Generate controller,:Rgen controller <name of controller>
+330Rails-vim#,Rails-vim#,Rake,:Rake
+331Rails-vim#,Rails-vim#,Open file under cursor,gf ~
+332Rails-vim#,Rails-vim#,tab complete,:Rmodel <tab>
+333Vimium# Chrome#,Vimium# Chrome#,help,?
+334VI# Editor / VIM#,VI# Editor / VIM#,Join lines,J
+335VI# Editor / VIM#,VI# Editor / VIM#,Select word,viw
+336VI# Editor / VIM#,VI# Editor / VIM#,Yank work,yiw
+337VI# Editor / VIM#,VI# Editor / VIM#,Replace word with yanked text,viwp
+338VI# Editor / VIM#,VI# Editor / VIM#,search for next occurrence of current word,*
+339VI# Editor / VIM#,VI# Editor / VIM#,indent lines,select the lines using visual selection and press '>'
+340VI# Editor / VIM#,VI# Editor / VIM#,"change text in "" or '","ci' or ci"""
+341VI# Editor / VIM#,VI# Editor / VIM#,Questions to Will Osser:,How to copy paste texts across files?
+342VI# Editor / VIM#,VI# Editor / VIM#,To comment multiple lines,"Go to first line and press Ctrl + V then select the text, then press I # ESC"
+343VI# Editor / VIM#,VI# Editor / VIM#,Search and Replace or Find and Replace (gc is want confirmation),or :%s//bar/gc to replace the last searched item
+344VI# Editor / VIM#,VI# Editor / VIM#,delete all lines,":1,$d"
+345VI# Editor / VIM#,VI# Editor / VIM#,delete sentence,das
+346VI# Editor / VIM#,VI# Editor / VIM#,delete 100 lines,100dd
+347VI# Editor / VIM#,VI# Editor / VIM#,delete from here till end of quote,":dt"""
+348VI# Editor / VIM#,VI# Editor / VIM#,delete from here till end any character string,:d/<stringsequence>
+349VI# Editor / VIM#,VI# Editor / VIM#,show line number,: set number
+350VI# Editor / VIM#,VI# Editor / VIM#,Hide Line number,:set nu!
+351VI# Editor / VIM#,VI# Editor / VIM#,Replay the last command,.
+352VI# Editor / VIM#,VI# Editor / VIM#,Macros,press q followed by macro name e.g. qq
+353VI# Editor / VIM#,VI# Editor / VIM#,To stop recording macro,press q followed by macro name e.g. qq
+354VI# Editor / VIM#,VI# Editor / VIM#,Control Register,Ctrl + R =
+355VI# Editor / VIM#,VI# Editor / VIM#,Replay macro,yiw
+356VI# Editor / VIM#,VI# Editor / VIM#,select,v or vip to select a paragraph
+357VI# Editor / VIM#,VI# Editor / VIM#,select to bottom of file v :$,search for text in file /
+358VI# Editor / VIM#,VI# Editor / VIM#,Vimrc file defaults,https://github.com/tpope/vim-sensible
+359VI# Editor / VIM#,VI# Editor / VIM#,Vimrc file defaults,:set shiftwidth=2
+360VI# Editor / VIM#,VI# Editor / VIM#,Insert a special character in vim,http://web.cs.mun.ca/~michael/c/ascii-table.html
+361VI# Editor / VIM#,VI# Editor / VIM#,Redo a change,Ctrl + r
+362VI# Editor / VIM#,VI# Editor / VIM#,Delete all,1GdG
+363VI# Editor / VIM#,VI# Editor / VIM#,Move to beginning of a word,b
+364VI# Editor / VIM#,VI# Editor / VIM#,Go to last change,`.
+365VI# Editor / VIM#,VI# Editor / VIM#,Go to previous location,Ctrl + o
+366VI# Editor / VIM#,VI# Editor / VIM#,Vertical Split current file,":vsp, then use ctrl w + h,l for moving across"
+367VI# Editor / VIM#,VI# Editor / VIM#,Horizontal Split current file,":sp, then use ctrl w + h,l for moving across"
+368NERDTree#,NERDTree#,Open the file in a new buffer or open/close directory.,Press o
+369NERDTree#,NERDTree#,preview the file,Press go
+370NERDTree#,NERDTree#,open the file in a new tab.,Press t
+371NERDTree#,NERDTree#,open the file in a new horizontal split,Press i
+372NERDTree#,NERDTree#,open the file in a new vertical split,Press s
+373NERDTree#,NERDTree#,Go to parent directory,Press p
+374NERDTree#,NERDTree#,refresh the current directory,Press r
+375NERDTree#,NERDTree#,Help,? will open a special help screen with the shortcut listings. Press ? again to get back to file tree.
+376NERDTree#,NERDTree#,Start NerdTree,Ctrl + F2
+377NERDTree#,NERDTree#,Create New File,m a
+378NERDTree#,NERDTree#,Cycle through panes,Fn + F2
+379NERDTree#,NERDTree#,Go to file browser,ctrl w + h
+380NERDTree#,NERDTree#,Bottom of screen,L
+381NERDTree#,NERDTree#,NerdTree open file in split window,i or s
+382NERDTree#,NERDTree#,Toggle NerdTree,Ctrl + N
+383Rails#,Rails#,generate/destroy controller,rails generate/destroy controller welcome index
+384Rails#,Rails#,scaffolding - create mvc for a resource,rails generate scaffold event user_id:integer msg:string aux:string inferred_date:datetime received_date:datetime created_at:datetime
+385Rails#,Rails#,Here are all the Rails 4 (ActiveRecord migration) datatypes:,:timestamp
+386Rails#,Rails#,Here are data mapper data types,Time
+387Rails#,Rails#,Rails Links,http://guides.rubyonrails.org/getting_started.html#running-a-migration
+388Rails#,Rails#,database migrations,rake db:migrate
+389Rails#,Rails#,Production deploy,rake db:migrate RAILS_ENV=production
+390Rails#,Rails#,To run withouth nginx or apache pre-compile assets,config.serve_static_assets = true
+391Rails#,Rails#,rails server -e production,""
+392One Password#,One Password#,Invoke in chrome,Cmd + \
+393Sinatra#,Sinatra#,Default port,localhost:4567
+394Sinatra#,Sinatra#,Migrate changes to the model to the database,ClassName.auto_migrate!
+395Sinatra#,Sinatra#,Create sample data in the database,"Event.create(event_date: ""April 18, 2014 at 08:19PM"", event_user: ""yash.ranadive@gmail.com"", event_data: ""Level III"", event_aux: ""Nothing"", created_at: Time.now)"
+396Hadoop# / hdfs#,Hadoop# / hdfs#,"HDFS ghetto grep, cat the file and grep in on your system","hdfs dfs -cat /user/hive/external_tables/security_events/hdfs-4-393-1424591186692.txt | egrep "".*[^}]$"" #Grep the string on individual file"
+397Hadoop# / hdfs#,Hadoop# / hdfs#,Grep for regex in a director/file,hadoop org.apache.hadoop.examples.Grep /user/hive/external_tables/security_events /user/yranadive/delme '.*[^}]$'
+398Hadoop# / hdfs#,Hadoop# / hdfs#,Hadoop deal with small files,https://github.com/edwardcapriolo/filecrush/tree/master/src
+399Hadoop# / hdfs#,Hadoop# / hdfs#,Hadoop search for a string/grep in folder,http://stackoverflow.com/questions/11732936/using-hadoop-to-find-files-that-contain-a-particular-string
+400Hadoop# / hdfs#,Hadoop# / hdfs#,Hadoop read sequence files,hadoop fs -text /name/of/file
+401Hadoop# / hdfs#,Hadoop# / hdfs#,Copy Files from one cluster to other,hadoop distcp
+402Hadoop# / hdfs#,Hadoop# / hdfs#,Hadoop hdfs filesystem command,http://hadoop.apache.org/docs/r0.19.0/hdfs_shell.pdf
+403Hadoop# / hdfs#,Hadoop# / hdfs#,Hadoop set replication factor,hadoop dfs -setrep -w 2 /user/yranadive
+404Hadoop# / hdfs#,Hadoop# / hdfs#,Hadoop set replication factor recursive,./bin/hadoop dfs -setrep -R -w 1 /
+405Hadoop# / hdfs#,Hadoop# / hdfs#,http://hadoop.apache.org/docs/r1.1.2/file_system_shell.html#mkdirÏ,hadoop job -kill job_id
+406Hadoop# / hdfs#,Hadoop# / hdfs#,hadoop remove file,hadoop fs -rm /user/hive/warehouse/blah/blah
+407Hadoop# / hdfs#,Hadoop# / hdfs#,hadoop merge files,hadoop fs -getmerge /path/to/file
+408Hadoop# / hdfs#,Hadoop# / hdfs#,Uncompress file,hadoop fs -text /path/to/file/* > /path/to/new/file
+409Hadoop# / hdfs#,Hadoop# / hdfs#,hadoop get available storage space free,_1376255215441_4489
+410Hadoop# / hdfs#,Hadoop# / hdfs#,Check if name resolution for Hadoop is proper,"cat /tmp/delme | xargs -I % host % | cut -d "" "" -f 4 - | uniq | wc -l"
+411Hadoop# / hdfs#,Hadoop# / hdfs#,Hadoop Delete all container caches on data nodes,parrallel-ssh this sudo rm -r /mnt/data0/cache/yarn/nm-local-dir/usercache/*
+412Hadoop# / hdfs#,Hadoop# / hdfs#,YARN Hadoop get size of application cache on all boxes,"parallel-ssh -l deployer -h /tmp/dfs.hosts  -A -t 120 -O StrictHostKeyChecking=no -P ""du -skb /mnt/data{0..4}/cache/yarn/nm-local-dir/usercache/* | cut -f 1 |   awk '{s+=$0} END {print s}'"""
+413Hadoop# / hdfs#,Hadoop# / hdfs#,Hadoop get rack awareness and number of under replicated blocks,hadoop fsck / -locations -blocks -files | grep -i -C6 miss
+414Node# Node.js#,Node# Node.js#,Explore JSON data,var samples = data.filter(function(app){return app.assessments.length > 0})
+415IntelliJ Idea#,IntelliJ Idea#,Find in Project ctrl + shift + f,basic editing http://www.jetbrains.com/idea/webhelp/basic-editing.html
+416Data Science#,Data Science#,Bias means underfitting,Highvariance means overfitting
+417R#,R#,attributes of an object,attribute(nameofobject/data.frame)
+418R#,R#,Install R package,"install.packages(""ggplot2"")"
+419R#,R#,Random sample data set generator,schtyp
+420R#,R#,Load data in memory,data(name of dataset)
+421R#,R#,"Rbind rbind() function combines vector, matrix or data frame by rows. LIKE UNION","x3 <- rbind(x,x2)"
+422R#,R#,Cbind combins columns,"cbind(1:20, 1:20, 1:20) produces a 20 row X 3 column matrix from 1-20"
+423R#,R#,Create array,"c(1,2,3) is an array"
+424R#,R#,Subscripts (in data...sortof),"iris3[,,3] means give me the subdata set of index 3 withing the iris dataset"
+425R#,R#,Split your data in to training and test set,smp_size <- floor(0.75 * nrow(mtcars))
+426R#,R#,## set the seed to make your partition reproductible,"train_ind <- sample(seq_len(nrow(mtcars)), size = smp_size)"
+427R#,R#,"train <- mtcars[train_ind, ]","test <- mtcars[-train_ind, ]"
+428R#,R#,Read CSV File,"read.csv(file=""simple.csv"",head=TRUE,sep="","")"
+429R#,R#,Class of object,class(object_name)
+430R#,R#,Convert data frame to data matrix,data.matrix(name_of_data_fram)
+431R#,R#,Get Data from a database and generate the histogram - you will need DBI and RMySQL library,"d1 <- fetch(drs, n = -1)"
+432R#,R#,"hist(d1$percent,5)","hist(d1$percent,main='Variation in calculated and source revenues for Government',xlab='Percentage Variation in calculated/source',ylim=c(0,17000))"
+433R#,R#,R Studio close connections,+  dbDisconnect(con)
+434R#,R#,Subset a data frame in R,"x.sub1 <- subset(x.df, y > 2 & V1 > 0.6)"
+435R#,R#,ASHA,URL: ftp.ashanet.org
+436R#,R#,chapter044 / G0@5hasf2009  [those are not 'Oh's but zeroes],>>> facebook  sfoutreach@gmail.com/@$h@$@nfr@n
+437Rspec#,Rspec#,For instance methods use,describe '.sample_method'
+438Rspec#,Rspec#,For class methods use,describe '#sample_method'
+439Rspec#,Rspec#,To run tests,rake spec
+440Ubuntu Alternatives#,Ubuntu Alternatives#,Change alternatives link,sudo update-alternatives --config java
+441Ubuntu Alternatives#,Ubuntu Alternatives#,ubuntu set time / date on the server,"sudo date --set ""25 Sep 2013 15:00:00"""
+442Ruby#,Ruby#,Class variable and class instance variable,"@@, @"
+443Ruby#,Ruby#,Get current directory (Dir.pwd or ),File.expand_path File.dirname(__FILE__)
+444Ruby#,Ruby#,Read file in memory,"f = File.open(""my/file/path"", ""r"") f.each_line do |line| puts line end f.close"
+445Ruby#,Ruby#,ruby loops,"while, for, until, break, redo and retry"
+446Ruby#,Ruby#,ISO-8601,Means 9 11 PM in UTC
+447Ruby#,Ruby#,Date Range,"(Date.new(2014,05,01)..Date.new(2014,10,01)).each {|x| puts x}"
+448Ruby#,Ruby#,Read file line by line without loading in memory,"IO.foreach(""testfile"") {|x| print ""GOT "", x }"
+449Ruby#,Ruby#,Inject something,"[1, 2, 3, 4].inject(0) { |result, element| result + element } # => 10"
+450Ruby#,Ruby#,Strftime to format time,"Time.now.strftime(""%b %d %Y"")"
+451Ruby#,Ruby#,Ruby special global variables,$:
+452Ruby#,Ruby#,Add something to the beginning of the array,$:.unshift('gen-rb')
+453Ruby#,Ruby#,Add something to the end of the array,$:.push('gen-rb')
+454Ruby#,Ruby#,%x[cmd] = run shell cmd,%Q[string] = multi-line string with substitution for #{}
+455Ruby#,Ruby#,Ruby gem install a particular version,gem install fog -v 1.8
+456Ruby#,Ruby#,Ruby gems use a particular version in your script,require 'oci8'
+457Ruby#,Ruby#,Legal field type options while defining models,":binary, :boolean, :references"
+458Ruby#,Ruby#,Ruby MySQL2 Gem,"client = Mysql2::Client.new(:host => 'dw-master', :username => 'dwadmin',:password => '', :database => 'lookout_analytics',:local_infile => ""true"")"
+459Ruby#,Ruby#,Ruby File.open CSV.open options,http://stackoverflow.com/questions/3682359/what-are-the-ruby-file-open-modes-and-options
+460DNSDB#,DNSDB#,https://github.com/eam/dnsdb,""
+461TMUX#,TMUX#,Tmux copy mode,"Ctrl + a, ["
+462TMUX#,TMUX#,Copy mode up and down,"up arrow, down arrow"
+463TMUX#,TMUX#,Copy mode select,Space
+464TMUX#,TMUX#,Copy mode Yank,Enter
+465TMUX#,TMUX#,Copy mode paste,"Ctrl + a, ]"
+466TMUX#,TMUX#,Rename Session,"Ctrl + a , $"
+467TMUX#,TMUX#,Reset the terminal when you see crappy characters in tmux,reset
+468TMUX#,TMUX#,Tmux increase pane size,PREFIX : resize-pane -R 20 (Resizes the current pane right by 20 cells)
+469TMUX#,TMUX#,Tmux list sessions,tmux list-sessions
+470TMUX#,TMUX#,Kill Window,C-a &
+471TMUX#,TMUX#,detach session,C-a d
+472TMUX#,TMUX#,Scroll up,"^a + [, q to quit"
+473TMUX#,TMUX#,Kill a particular tmux window,tmux kill-window -t 9
+474TMUX#,TMUX#,new session,tmux new -session -s
+475TMUX#,TMUX#,attach to a session,tmux attach -t <name of session>
+476TMUX#,TMUX#,TopHat BottomHat Wireless Password,X4Lwy6c@8*YHzz69PGWZ+v5A
+477TMUX#,TMUX#,Sqoop 1,sqoop import -D mapred.task.timeout=0 --connect jdbc:mysql://xx.xx.xxx.xx/MyDB --username myuser --password mypass --table mytable --split-by rowkey -m 14
+478TMUX#,TMUX#,"Sqoop 2, sqoop2",set server --host sqoop2.company.net
+479TMUX#,TMUX#,Execute given job,start job --jid 1
+480TMUX#,TMUX#,Create a job,create job --jid 1
+481TMUX#,TMUX#,Update a job,update job --jid 1
+482TMUX#,TMUX#,# Google dev console stats,dw-reporting driodfetcher CeeQuuv3uj9eizah
+483TMUX#,TMUX#,pbr corp.lookout.com,""
+484TMUX#,TMUX#,pbr product lookout,honeybooboo reporter reporter
+485TMUX#,TMUX#,hue root toast,""
+486TMUX#,TMUX#,Install Cloudera CDH4 on Mac OSX,http://rajgopalv.blogspot.com/2013/03/installing-cloudera-hadoop-on-mac.html
+487TMUX#,TMUX#,ssh-keygen,Make
+488TMUX#,TMUX#,Digital Ocean heroku pinger,naek3thahbeejuoK
+489TMUX#,TMUX#,digital ocean logbot,107.170.129.11
+490TMUX#,TMUX#,"Encryptor.decrypt( encoded_val, :key => secret_key, :algorithm => 'aes-256-ecb')","Encryptor.encrypt( plain_text_val, :key => secret_key, :algorithm => 'aes-256-ecb')"
+491TMUX#,TMUX#,DNS Must point to on mac,192.168.3.69 and .102
+492TMUX#,TMUX#,QA AMQ instance,[4:43pm] rtyler: http://amq.lookoutqa.com:8161/admin/
+493TMUX#,TMUX#,Lookout Server Ecosystem,+bunch of data nodes.
+494TMUX#,TMUX#,[4:14pm] Brandon: f1eXi1is,[4:14pm] Brandon: http://chef.flexd-sf0.local:4040/
+495TMUX#,TMUX#,Hive optimization,http://mail-archives.apache.org/mod_mbox/hive-user/201112.mbox/%3C4EDE0FD3.3090006@gmail.com%3E
+496TMUX#,TMUX#,Find how much space each directory occupies in hadoop,"hadoop fs -du /user/hive/warehouse/ | awk '/^[0-9]+/ { print int($1/(1024**3)) "" [GB]\t"" $2 }'"
+497TMUX#,TMUX#,Mapreduce logs,yarn rmadmin -refreshNodes
+498TMUX#,TMUX#,Link for data ingestion in to hadoop http://www.linkedin.com/groups/Data-Ingestion-Into-Hadoop-3638279.S.199779955,""
+499TMUX#,TMUX#,HTML Slides,http://www.go-steel-programmers.org/talks/2013/Feb_RabbitMQ_Go/#slide9
+500Interesting# Tidbits#,Interesting# Tidbits#,Max throughput of disk,Network is a lot faster
+501Interesting# Tidbits#,Interesting# Tidbits#,Numbers Everyone Should Know,""
+502Interesting# Tidbits#,Interesting# Tidbits#,L1 cache reference                             0.5 ns,"Send packet CA->Netherlands->CA      150,000,000 ns"
+503Interesting# Tidbits#,Interesting# Tidbits#,mysqldump --quick --single-transaction --add-drop-table --add-locks --create-options --disable-keys --extended-insert --set-charset -udwadmin -pg00dW1n3 sandbox_dgustafson | gzip --fast > /home/yranadive/dgustafson,""
+504Interesting# Tidbits#,Interesting# Tidbits#,"RBHive.tcli_connect('sf1r005s035.flexd-sf0.local', 10000, {:hive_version => 11, :transport => :sasl, :sasl_params => {}}) do |connection|",end
+505Interesting# Tidbits#,Interesting# Tidbits#,HTTP Authentication,"The BA mechanism provides no confidentiality protection for the transmitted credentials. They are merely encoded with Base64 in transit, but not encrypted or hashed in any way. Basic Authentication is, therefore, typically used over HTTPS."
+506Interesting# Tidbits#,Interesting# Tidbits#,Bits and Bytes Madness,A byte is 8 bits
+507Interesting# Tidbits#,Interesting# Tidbits#,Windows / Unix Newline characters \r \n and all the mess,\n
+508Interesting# Tidbits#,Interesting# Tidbits#,Hadoop Streaming hadoop jar /opt/cloudera/parcels/CDH-5.0.0-0.cdh5b2.p0.27/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.2.0-mr1-cdh5.0.0-beta-2.jar -Dmapred.reduce.tasks=0 -input /user/flume/sendgrid-events/2014-01-01/ -output /user/jenkins/sendgrid_events_temp/ -mapper 'mapper.py' -file /var/lib/jenkins/scripts/sendgrid/mapper.py,-file myDictionary.txt
+509Interesting# Tidbits#,Interesting# Tidbits#,Hadoop Streaming Read compressed file,-Dmapreduce.job.reduces=0
+510Interesting# Tidbits#,Interesting# Tidbits#,Hadoop Compression streaming jar,-output /user/yranadive/compressed/fact_billings
+511Interesting# Tidbits#,Interesting# Tidbits#,"sudo pf --defaults_file='/var/lib/jenkins/dwadmin_passwd' --host='dw-master' --db='lookout_analytics' --hdfs_path='/tmp/yranadive/somefile_1' --sql='SELECT device_id,created_at,hex(guid) FROM flexd_production.device_guids'",hadoop dfs -mv /user/hive/warehouse/sandbox_yranadive.db/test/swap1 /user/hive/warehouse/sandbox_yranadive.db/test/swap0
+512Interesting# Tidbits#,Interesting# Tidbits#,Abbreviations in tech companies,POC - Proof of Concept
+513Kafka#,Kafka#,Describe Topic,bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic my-replicated-topic
+514Kafka#,Kafka#,List Topics,bin/kafka-topics.sh --list --zookeeper lookout-zk-prod1pre-0.flexilis.org:2181
+515Kafka#,Kafka#,Start Zookeeper,bin/zookeeper-server-start.sh config/zookeeper.properties
+516Kafka#,Kafka#,Start Kafka Server,bin/kafka-server-start.sh config/server.properties
+517Kafka#,Kafka#,Create Topic Test,bin/kafka-topics.sh --create --zookeeper lookout-zk-prod1pre-0.flexilis.org:2181 --replication-factor 3 --partitions 3 --topic camus_test
+518Kafka#,Kafka#,CONSUMER,""
+519Kafka#,Kafka#,Consume Messages,bin/kafka-console-consumer.sh --zookeeper zk0.today.lookoutqa.com:2181 --topic micropush.events --clientId analytics
+520Kafka#,Kafka#,Consumer One Message Only,bin/kafka-console-consumer.sh --zookeeper zk0.today.lookoutqa.com:2181 --topic micropush.events --max-messages 1 2>/dev/null
+521Kafka#,Kafka#,Dumps out consumed messages to the console using the Simple Consumer staring at offsett x,"--broker-list kafka0.today.lookoutqa.com:6667,kafka1.today.lookoutqa.com:6667,kafka2.today.lookoutqa.com:6667 > /tmp/p11-o-2"
+522Kafka#,Kafka#,How far back is the consumer,bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --group analytics --zkconnect zk0.today.lookoutqa.com:2181 --topic micropush.events
+523Kafka#,Kafka#,Export Zookeeper offsets for a consumer,--group analytics --output-file /tmp/offsets
+524Kafka#,Kafka#,PRODUCER,""
+525Kafka#,Kafka#,Produce Messages,This is another message
+526Kafka#,Kafka#,Multi-broker Cluster,> cp config/server.properties config/server-2.properties
+527Kafka#,Kafka#,config/server-1.properties:,log.dir=/tmp/kafka-logs-1
+528Kafka#,Kafka#,config/server-2.properties:,log.dir=/tmp/kafka-logs-2
+529Kafka#,Kafka#,Lookout-storm,jruby-kafka
+530Kafka#,Kafka#,Best Practice for Java Storm Topologies:,"* When a Spout emits a tuple, it can tag the tuple with a message id. The message id can be any type. When Storm acks or fails a message, it will pass back to the spout the same message id to identify which tuple it's referring to. If the spout leaves out the message id, or sets it to null, then Storm will not track the message and the spout will not receive any ack or fail callbacks for the message."
+531Kafka#,Kafka#,What can go wrong while parsing protocol buffers from kafka and storing it in hdfs,"4. There is a non-recoverable error - protobuf parsing failure, json failure"
+532Kafka#,Kafka#,http://svendvanderveken.wordpress.com/2014/02/05/error-handling-in-storm-trident-topologies/,}
+533Openstack#,Openstack#,sketty,Namenode: http://10.86.36.106:50070/dfshealth.html#tab-overview
+534Openstack#,Openstack#,Browse file system,http://10.86.36.106:50070/explorer.html#/
+535Openstack#,Openstack#,Data Node,10.86.36.108
+536Openstack#,Openstack#,Cloudera Manager,http://10.86.36.108:7180/cmf/home
+537Openstack#,Openstack#,To bring up an instance: http://os0.flexilis.net/horizon/project/,os0 vs os-f - os0 = prod and os-f - corp
+538Openstack#,Openstack#,vlan2015 2015 is production,vlan2020 2020 is CORP
+539Scalding#,Scalding#,scripts/scald.rb --hdfs WordCountJob.scala --input hdfs:///user/yranadive/test.txt --output hdfs:///user/ubuntu/test_output.tsv --host qa-hadoop-nn --sshuser ubuntu --print,""
+540Scalding#,Scalding#,REPL Manual,https://github.com/twitter/scalding/wiki/Scalding-REPL
+541Scala#,Scala#,scala docs,http://www.scala-lang.org/api/current/#scala.collection.Iterator
+542Scala#,Scala#,tidbits,a => true means a function that takes input a and returns true
+543Scala#,Scala#,"so you can have someObj.someFunction(a -> b) {c:String => ""value is c""}","println(""stuff"")"
+544Scala#,Scala#,Collections,"zipWithIndex - Creates an iterator that pairs each element produced by this iterator with its index, counting from 0."
+545Scala#,Scala#,basic stuff url,http://spark.apache.org/docs/latest/programming-guide.html
+546Scala#,Scala#,Transformations on collections,http://spark.apache.org/docs/0.9.0/scala-programming-guide.html
+547Scala#,Scala#,Trait = Java interface,"Seq would be Java's List, and Scala's List would be Java's LinkedList."
+548Spark#,Spark#,"scala> val arr = ""yash bush cash rush"".split(' ')",""
+549Spark#,Spark#,array access index (first element),arr(0)
+550Spark#,Spark#,array all elements except first,arr.tail
+551Spark#,Spark#,launch the shell,spark-shell
+552Spark#,Spark#,Create/Load RDD,textFile.first
+553Spark#,Spark#,Get first k rows in a RDD,textFile.take(10)
+554Spark#,Spark#,Filter a RDD,"data.filter(line => line.contains(""2.52""))"
+555Spark#,Spark#,Scala toInt/toDouble,"""1"".toInt"
+556Spark#,Spark#,Scala class get the class,"(""1"").getClass.toString"
+557Spark#,Spark#,Scala declare array,"val numbers = Array(1, 2, 3, 4)"
+558Spark#,Spark#,Add element to end of array,array :+ 4
+559Spark#,Spark#,Add element to beginning or array,0 +: array
+560Spark#,Spark#,declare tuple,"val numbers = (1, 2, 3, 4)"
+561Spark#,Spark#,Example of map/reduce,"data.map(line => line.split("" "")(2).toDouble).reduce((a, b) => Math.max(a, b))"
+562Spark#,Spark#,Cluster map/reduce like hadoop - find occurrence of each word in the text,wordCounts.collect()
+563Spark#,Spark#,add jar to classpath,./bin/spark-shell --master local[4] --jars code.jar
+564Spark#,Spark#,set parallelism - this runs of 4 cores,./bin/spark-shell --master local[4] --jars code.jar
+565Spark#,Spark#,"Scala equivalent of ruby array.join("","") is .mkString("","")",""
+566QA Hadoop Cluster#,QA Hadoop Cluster#,Hive metastore postgres password for user hive SdjllzI5E2f,""
+567QA Hadoop Cluster#,QA Hadoop Cluster#,machine learning talk:,---monthly meetup
+568QA Hadoop Cluster#,QA Hadoop Cluster#,sanganak,tej29kom081984
+569How to do events at lookout#,How to do events at lookout#,- Book the event on the calendar,""
+570How to do events at lookout#,How to do events at lookout#,- Fill out the all hands event seating request form at,https://confluence.corp.lookout.com/display/OE/Office+Experience%3A+Event+Request+Form
+571How to do events at lookout#,How to do events at lookout#,"- If you want the event recorded, create helpdesk ticket for IT to record the event",""
+572How to do events at lookout#,How to do events at lookout#,"- If guest speaker, arrange for Lookout T-shirt for the guest speaker from marketing",""
+573Solr#,Solr#,disk space used(original) = 1/3 original for each indexed field + 1 * original for stored + 2 * original per field with term vectors,""
+574Solr#,Solr#,suggest query,http://localhost:8983/solr/csv/suggest?suggest=true&suggest.build=true&suggest.dictionary=descriptionSuggester&wt=json&suggest.count=2&suggest.q=gi
+5753D Structure of Protiens#,3D Structure of Protiens#,http://en.wikipedia.org/wiki/Ribbon_diagram,http://www.rcsb.org/pdb/home/home.do
+5763D Structure of Protiens#,3D Structure of Protiens#,Components of an app:,"Item:network hosts, Representation: ball with spores coming out of it each spore indicating a malicious or good network"
+5773D Structure of Protiens#,3D Structure of Protiens#,SDK,"Item:Ad SDK, Representation: a single sphere in an ad sdk semi-transparent amoeba jello like goo"
+5783D Structure of Protiens#,3D Structure of Protiens#,Next Steps,Plot the things.
+5793D Structure of Protiens#,3D Structure of Protiens#,Reset 1Password Phone,https://guides.agilebits.com/1password-mac-kb/4/en/topic/how-do-i-start-over
+5803D Structure of Protiens#,3D Structure of Protiens#,Solution for monitoring storm,"=> [1123217300, nil, 561591520, 561622380]"

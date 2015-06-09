@@ -1,0 +1,560 @@
+UNIX#
+###########################
+Host file location
+cat /etc/hosts
+
+cli skip one word backward
+Alt + B
+
+cli skip one word forward
+Alt + F
+
+cli delete to the end of line
+Ctrl + K
+
+cli delete to the beginning of line
+Ctrl + U
+
+cli delete till end of the word
+Alt + D
+
+Set variable in shell script as output of command
+var=`date +d`
+
+generate ssh keys
+https://help.github.com/articles/generating-ssh-keys/
+
+Show calendar
+cal 2015
+
+Geolocate an IP Address
+curl ipinfo.io/<ipaddress>
+
+Compare/diff directories
+diff --suppress-common-lines -y <(cd path_to_dir1; find .|sort) <(cd path_to_dir2; find .|sort)
+
+Case insensitive search in less
+-i
+
+Less go to end of file and follow (like tail)
+Shift + F
+
+unix shell loops
+for i in {1..100} ; do echo "dev.you.sometext:857|c" | nc -w 1 -u -v graphite0.dev.0.aws.myorg.com 8125 ; done
+
+Send a packet over udp using Netcat
+(echo "GET / HTTP/1.0" ; echo "Host: example.com" ; echo) | nc -w 1 -v example.com 80
+
+Receive packets over udp/tcp on port 8125
+nc -l -v 8125
+
+Listen for outgoing UDP packets on a local port
+sudo ngrep -W byline -d en3 . udp port 8125 > /tmp/capture.txt
+
+GNU Screen copy mode
+Ctrl + A, ESC, Use Arrow Keys
+
+Find the number of fields/number of columsn/ number of tabs in a line
+cat /tmp/delme.txt |  egrep -o -E $'\t' | wc -l  == wc -l /tmp/delme.txt * cat /tmp/delme.txt | head -1 |  egrep -o -E $'\t' | wc -l
+
+Search and display only matched regular expression case insensitive
+cat /tmp/delme | egrep -io "execute_count=\d+$" | uniq
+
+Find the number of columns for the entire file (should always return one value)
+cat ~/Downloads/tmo_2013_10_valid.csv | sed 's/[^\|]//g' | awk '/./ {print NR, length }' | cut -d ' ' -f2 | uniq
+
+Find the number of columns
+awk -F "," '{print NF}' uniqMovie.csv | head -1
+
+shell date with hours minutes and seconds
+date +%Y_%m_%d_%H%M%S
+
+shell date diff
+date --date="222 days ago" +%Y%m%d
+
+Install GNU Parallel
+(wget -O - pi.dk/3 || curl pi.dk/3/) | bash
+
+GNU Parallel
+cat listofthings.txt | parallel --max-procs=8 --group 'echo "Thing: {}"'
+
+System Level Global Variable in Unix (like export var=xx but for all users): add to file
+/etc/environment
+
+Create a passwordless sudo access for user yash: in /etc/sudoers
+yash         ALL = (ALL) NOPASSWD: ALL
+
+Create a passwordless ssh access to your machine:
+Make sure to add the public key of the box you are connecting from to the authorized_keys
+ file in ~/.ssh/
+
+Rsync copy files from local server to remote
+rsync -avzhe ssh backup.tar --exclude='.git' root@remote_server:/path/to/dir
+
+Rsync copy files from remote server to local
+rsync -avzhe ssh backup.tar --exclude='.git' root@remote_server:/path/to/dir
+
+List Ip Tables
+sudo iptables -L
+
+Add someone to sudoers file
+visudo
+
+Log of mail sent from a server using the mail command
+tail -f /var/log/mail.log
+
+Generate random number
+echo $RANDOM
+
+Get the filename from the file path
+basename /home/yash/xman.h
+
+list details of file/folder (stuff you see in ls)
+stat /tmp
+
+tcpdump take dump of packets tcp
+http://www.danielmiessler.com/study/tcpdump/
+
+Crontab Cron: Run every x minutes
+*/x * * * * /path/to/script
+
+Crontab syntax for schedule
+*  *  *  *  * where order is min(0-59), hour(0-23), day of month(1-31), month(1-12), day of week(0-6 where Sunday=0)
+
+Crontab syntax for every other hour
+0 */2 * * *
+
+Power top
+top - show list of processes - Press F to sort
+
+top Dump output of top to stdout once
+top -b -n 1
+
+top Dump output of top to stdout once with full commands
+top -c -b -n 1
+
+top Monitor certain pids
+top -p <pid1>, <pid2>
+
+top monitor processes for a user
+top -U username
+
+show list of processes
+nmon
+
+Print all open file handles on a file
+sudo lsof name/of/file
+
+Zsh unix search command history
+Ctrl + r , type the keyword and keep hitting Ctrl + r to go futher in the search
+
+Shell script echo commands as your execute every line
+#!/bin/bash -x
+
+Kill only pids containing a string
+pkill -f <string>
+
+Shell script exit when one command in a script fails
+#!/bin/bash -e
+
+Create file of size x bytes (binary)
+dd if=/dev/zero of=/path/to/desired/big/file count=1024
+
+Run last command with sudo
+sudo !!
+
+Secure copy scp multiple files from a remote host
+scp your_username@remotehost.edu:~/\{foo.txt,bar.txt\} .
+
+Secure copy scp multiple files from a remote host with ranges
+scp your_username@remotehost.edu:~/foo_00{1..6} . # copies foo_001, foo_002, fo.., foo_006
+
+Split a file in to multiple files and tar
+tar -cvf - <stuff to put in archive> | split --bytes=1m --suffix-length=4 --numeric-suffix - myarchive.tar.
+
+Merge the output of split - multiple files
+cat arch/dw-master.tar.* | tar xvf -
+
+Amount of RAM on a box in gigabytes
+free -mg
+
+paste the argument of the previous command
+ESC + .
+
+
+Unix signal SIGINT Ctrl-C
+The SIGINT signal is sent to a process by its controlling terminal when a user wishes to interrupt the process. This is typically initiated by pressing Control-C, but on some systems, the "delete" character or "break" key can be used.[3]
+
+Unix signal SIGTERM
+The SIGTERM signal is sent to a process to request its termination. Unlike the SIGKILL signal, it can be caught and interpreted or ignored by the process. This allows the process to perform nice termination releasing resources and saving state if appropriate. It should be noted that SIGINT is nearly identical to SIGTERM.
+
+Unix signal SIGKILL
+The SIGKILL signal is sent to a process to cause it to terminate immediately (kill). In contrast to SIGTERM and SIGINT, this signal cannot be caught or ignored, and the receiving process cannot perform any clean-up upon receiving this signal.
+
+Unix signal SIGQUIT Ctrl-D
+The SIGQUIT signal is sent to a process by its controlling terminal when the user requests that the process quit and perform a core dump.
+
+Unix signal SIGHUP
+The SIGHUP signal is sent to a process when its controlling terminal is closed. It was originally designed to notify the process of a serial line drop (a hangup). In modern systems, this signal usually means that the controlling pseudo or virtual terminal has been closed.[2]
+
+Unix signal SIGSTP Ctrl-Z
+Suspends a process. This too, can be handled, ignored or blocked. Since it does not terminate the process, the process can be resumed by sending a SIGCONT signal. This signal can be generated by pressing Ctrl+Z. (Sidenote: Ctrl+Z stands for substitute character which indicates End-of-File in DOS)
+
+Find files with regex
+find . -path '.*/config.xml' | grep <search_string>
+
+remove files older than 5 days on unix
+find /my_current_directory -mtime +5 -type f -delete
+
+print files modified in the last 24 hours
+find /directory_path -type f -mtime -1 -print
+
+monitor cpu memory and other shit
+nmon
+
+Free resident set size (rss res) memory on a server
+free -g
+
+unix linux ubuntu get stats on what the pid is doing
+strace -p PID
+
+Count number of forks a application makes
+sudo strace -o /tmp/strace.log -fFv  python -m SimpleHTTPServer 8283
+
+Sum numbers
+numbers | awk '{s+=$0} END {print s}'
+
+awk print lines from line number x onwards
+awk 'NR > x' name/of/file
+
+print limit of open file handles
+ulimit -a
+
+list all packages ubuntu
+dpkg -l
+
+which user are you logged in as
+whoami
+
+what users are logged in the box
+who
+
+List open ssh connections to a server
+Try netstat -atn | grep ':22'
+
+ssh default port is port 22
+
+Get all host names of a particular server
+nslookup server_host.com
+
+Create simple http server on a port
+python -m SimpleHTTPServer 8000
+
+Set up ssh tunnel from localhost:8000 to remote:8888
+ssh -N root@remote_server -L 8000:localhost:8888
+
+Syslog location
+cat /var/log/syslog
+
+Get encoding of a file
+file -i name_of_file
+
+ID of the user as recognized by the system
+id root
+
+Get user and group of the user
+id -Gn username
+
+List users that can ssh
+cat /etc/ssh/sshd_config
+
+Mount a directory on remote
+First, sudo mkdir /local/mount/point/directory Then, sudo mount ServerIP:/folder/already/setup/to/be/shared /loca/mount/point/directory
+
+To make a permanent mount add the following to /etc/fstab
+servername:dir /mntpoint nfs rw,hard,intr 0 0
+
+List all mounted devices (< partition >< mount point >< file system >< mount options >< dump >< fsck order >)
+cat /etc/mtab
+
+List all mounted/unmounted devices
+cat /etc/fstab
+
+Show devices that use this host
+showmount -a
+
+NFS
+export, exportfs
+
+check if a port is open on a remote server
+telnet host port_number or nc -vz -w 2 database-box-1.internal.com 27017
+
+Add sudo user
+visudo then add the following line: user ALL=(ALL) ALL
+
+list all the users in unix
+cat /etc/passwd
+
+make sub directories when necessary
+mkdir -p path/to/directory
+
+export a env variable
+export PATH=$PATH:/opt/bin:/usr/local/bin:$HOME/bin
+
+show environment variables
+env
+
+Export a environment variable to all user
+modify /etc/profile
+
+Print name of shell you are using
+echo $0
+
+Get the current pid of the session
+$$
+
+GZIP TAR - compress a directory
+tar -zcvf dest_file.tar.gz /folder/to/compress
+
+To restore file
+tar -zxvf dest_file.tar.gz [file/path/to/decompress]
+
+Generate a random password 16 characters
+pwgen 16
+
+Create symlink symbolic link
+ln -s /path/to/file-name link-name
+
+List all open ports
+netstat -lnptu
+
+Set unix path environment variable
+export GRADLE_HOME=/Users/yasha/Software/gradle-1.1
+
+Create User / password
+useradd -m tom; passwd tom
+
+Add existing user to a group
+usermod -G grpname uname
+
+in ~/.bashrc
+alias ls='ls -lartSh'
+
+Find the unix linux distro operating system
+cat /etc/*-release OR lsb_release -a
+
+Find the if 64 or 32 bit
+uname -a
+
+Find the
+List of unix group users
+cat /etc/group
+
+Change owner and group recursive
+chown -R username:groupname <name_of_dir>
+
+Change Permission Recursive
+chmod -R 775 folder_name where 775 is (user, group, other)
+
+Show the Proceslist
+ps -ef | grep -i "yash"
+
+Octal Dump
+cat file | od -cb
+
+FTP
+ftp ftp://username:password@ftp.host.com
+
+Get IP Address of the current system
+/sbin/ifconfig | less
+
+Get IP address
+ip -f inet a | awk '/inet / { print $2 }' or ifconfig | sed -n 's/.*inet addr:\([0-9.]\+\)\s.*/\1/p'
+
+UNIX COMMENT:
+: <<'COMMENT'
+stuff inside is commented
+COMMENT
+
+Change Password
+passwd
+
+the file encoding
+file <nameoffile> or file -I <nameoffile>
+
+Find files
+find -name 'name_of_file'
+
+Find in files text
+grep -R yourstring /path/to/dir or find . -exec grep "www.athabasca" '{}' \; -print
+
+Find on all disks
+find / -name file.extension
+
+Find files using regular expressions. this will find files in dir ./chunker_somestring/lastSuccessful
+find -regex ".*chunker.*/lastSuccessful" | xargs grep -r -i string_to_grep
+
+Inline calculator in shell
+echo "2/3" | bc
+
+Linux Directory Structure
+http://linuxcommand.org/lts0040.php#root
+
+Show the bottom of the log file and refresh
+tail -f filename
+
+To get the nth line of a file
+head -45 foo.txt | tail -1
+
+Convert DOS to UNIX dos2unix file csv
+tr '\r' '\n' < delme.csv > out.csv
+
+Daemon services using init.d
+service --status-all
+sudo service name_of_serive start/stop/restart
+
+See if a upstart service is running
+status name_of_service
+
+Start upstart service
+sudo start name_of_service
+
+Stop upstart service
+sudo stop name_of_service
+
+upstart list all services
+initctl list
+
+List space occupied by directories in current directory:
+du -sk *
+
+List space global:
+df -k
+
+Apply a certain rule on a certain type of file:
+find . -name "*.bak" -print0 | xargs -0 -I file mv file ~/old.files
+
+find and replace in unix
+sed -i 's/source/target/g' nameoffile
+
+find and replace in Mac OSX
+sed -i '' 's/source/target/g' nameoffile
+
+
+GIT#
+###############################################################
+Git checkout tag
+git checkout tags/<tag>
+
+git remove a file from the index (will undo addition to the index)
+git reset HEAD <file>
+
+git show commits with abbreviated hash
+git log --pretty=format:"%h %an %s"
+
+git show commits for a branch
+git log --first-parent --no-merges
+
+git log show file names that have been modified
+git log --name-status
+
+git config -l
+and look at the line starting with 'remote.origin.url'. To switch your protocol
+git config remote.origin.url git@github.com:your_username/your_project.git
+
+Git Squash Commit (prefix every line to squash with s)
+git rebase -i master
+
+Git show remotes
+git remote -v show
+
+Git ammend a previous commmit
+git commit --amend
+
+Git remote add a new upstream
+git remote add upstream yourrepo.git
+
+Git branches
+https://github.com/Kunena/Kunena-2.0/wiki/Create-a-new-branch-with-git-and-manage-branches
+
+Git create a branch
+git branch name_of_branch
+
+Git rename a branch
+git branch -m old_branch new_branch
+
+Git push to branch
+git push origin <branch name>
+
+Git Delete Branch
+git branch -D <branch name>
+
+Git delete branch from remote
+git push origin :newfeature
+
+Git do a diff with HEAD
+git diff HEAD
+
+Git diff with a remote repo
+git diff DATA-1724 gerrit/master
+
+Git do a diff with a particular branch
+git difftool somebranch:UNREADME otherbranch:README
+
+Git diff with a previous commit
+git diff 5cdfs6ed HEAD index.html
+
+Git reset to head
+git reset --hard HEAD
+
+Git checkout previous commit
+git checkout 1dcf2d
+
+Git undo changes to a file not staged for commit
+git checkout -- filename
+
+Git merge branch to master
+git checkout master
+git merge branchname
+
+Git show list of branches
+git branch
+
+Git Create branch
+git branch branchname
+
+Git Remove a branch from local
+git branch -D branchname
+
+Git Delete branch from github
+git push origin --delete <branchName>
+
+Git reset to a previous state
+git reset --hard to reset to a previous state. Use the git-reflog command to find the SHA-1 of the previous state and then reset to it.
+
+Git merge only certain files from a separate branch
+git checkout branchname pathtofile1 pathtofile2
+
+Git revert to a previous commit
+http://stackoverflow.com/questions/4114095/git-revert-to-previous-commit-how
+
+Git stash
+git stash
+
+To list the stash
+git stash list
+
+Git show log with file names that changed
+git log --stat
+
+Git show changes for a specific branch only
+git log master..
+
+Git cat a previous version
+git show HEAD:name_of_file
+
+TO apply your changes
+git stash --apply
+
+Git show history of the file
+gitk [filename]
