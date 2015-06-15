@@ -28,10 +28,11 @@ class FreeTextParser
     @current_cheat = Cheat.new
     @current_cheat.category = @current_category
     @current_cheat.description = @current_line.strip
+    @current_cheat.command = []
   end
 
   def set_command
-    @current_cheat.command = @current_line.strip
+    @current_cheat.command << @current_line.gsub(/\s+$/,'')
   end
 
   def finalize_cheat

@@ -1,4 +1,5 @@
 require 'trollop'
+require 'json'
 require 'csv'
 require_relative './free_text_parser.rb'
 require_relative './state_machine.rb'
@@ -19,15 +20,30 @@ class Run
     end
 
 
-    CSV.open(@fileout,"wb") do |csv|
-      csv << ["id","section","description","command"]
+#    CSV.open(@fileout,"wb") do |csv|
+#      csv << ["id","section","description","command"]
+#      parser.result_cheat_array.each_with_index do |cheat,idx|
+#        csv << ["#{idx}#{cheat.category}" || "",
+#                cheat.category || "",
+#                cheat.description || "",
+#                cheat.command || ""]
+#      end
+#    end
+
+    File.open(@fileout, 'wb') do |file|
+      cheat_hash_array = []
       parser.result_cheat_array.each_with_index do |cheat,idx|
-        csv << ["#{idx}#{cheat.category}" || "",
-                cheat.category || "",
-                cheat.description || "",
-                cheat.command || ""]
+        cheat_hash = {}
+	cheat_hash[:id] = [idx, cheat.category].join || ""
+        cheat_hash[:section] = cheat.category || ""
+        cheat_hash[:description] = cheat.description || ""
+        cheat_hash[:command] = cheat.command.join("\n") || ""
+	
+	cheat_hash_array << cheat_hash
       end
+      file.write(cheat_hash_array.to_json)
     end
+
     puts parser.result_cheat_array.map {|x| puts x.inspect}[1..10]
     puts parser.result_cheat_array.count
   end

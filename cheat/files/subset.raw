@@ -1,5 +1,108 @@
+Ruby#
+###############################################################
+Generate a random string in ruby of length / generate password
+(0...32).map{ [('a'..'z').to_a,('A'..'Z').to_a,(0..9).to_a].flatten[rand(62)] }.join
+
+Hash select only certain elements
+hash.select {|k,v| k == "i_want_you" }
+
+Delete file
+require 'FileUtils'; FileUtils.rm(path_to_image)
+
+Run command multiple times
+3.times {puts "test"}
+
+Read file in a string
+str = IO.read(file)
+
+Write to a file
+File.open(yourfile, 'w') { |file| file.write("your text") }
+
+Class variable and class instance variable
+@@, @
+
+Get current directory (Dir.pwd or )
+File.expand_path File.dirname(__FILE__)
+
+Read file in memory
+f = File.open("my/file/path", "r") f.each_line do |line| puts line end f.close
+
+ruby loops
+while, for, until, break, redo and retry
+
+uninstall a gem
+gem uninstall gem_name --version 1.1.9
+
+Date Range
+(Date.new(2014,5,1)..Date.new(2014,10,1)).each {|x| puts x}
+
+Read file line by line without loading in memory (for large files)
+IO.foreach("testfile") {|x| print "GOT ", x }
+
+Inject something
+[1, 2, 3, 4].inject(0) { |result, element| result + element } # => 10
+
+Strftime to format time
+Time.now.strftime("%b %d %Y")
+
+Path of looking at directories files when requiring external files/classes
+$:
+
+Add something to the beginning of the array
+["a","b"].unshift('gen-rb')
+
+Add something to the end of the array
+["a","b"].push('gen-rb')
+
+Run shell command
+%x[cmd] = run shell cmd
+
+multiline string
+%q[string]
+
+multi-line string with substitution for #{}
+%Q[string]
+
+Ruby gem install a particular version
+gem install fog -v 1.8
+
+Ruby gems use a particular version in your script
+require 'ruby-oci8', '=1.0.7'
+
+Ruby File.open CSV.open modes
+http://ruby-doc.org/core-2.2.2/IO.html#method-c-new-label-IO+Open+Mode
+
+Read JSON in a Hash
+require 'multi_json'; hash = MultiJson.load('{"abc":"def"}')
+
+Write to CSV File
+CSV.open(filename,"wb") do |csv|
+  csv << ["col1","col2","col3","col4"]
+end
+
 UNIX#
 ###########################
+shell script echo every command run
+set -x
+
+shell script abort when any command fails
+set -e
+
+show current locale
+locale
+
+show installed locales
+locale -a
+
+change locale in ubuntu
+export LANG="en_US.UTF-8"; export LC_ALL="en_US.UTF-8"
+
+ascii table
+http://web.cs.mun.ca/~michael/c/ascii-table.html
+
+cp multiple files/folders
+cp -r {file1,file2,file3} /dest/dir
+
 Host file location
 cat /etc/hosts
 
@@ -356,7 +459,7 @@ chown -R username:groupname <name_of_dir>
 Change Permission Recursive
 chmod -R 775 folder_name where 775 is (user, group, other)
 
-Show the Proceslist
+Show the Processlist
 ps -ef | grep -i "yash"
 
 Octal Dump
@@ -440,6 +543,20 @@ sed -i 's/source/target/g' nameoffile
 find and replace in Mac OSX
 sed -i '' 's/source/target/g' nameoffile
 
+grep the regex pattern
+grep -e pattern
+
+grep perform case insensitive matching
+grep -i string
+
+grep display the line numbers
+grep -n string
+
+grep display the non matching lines
+grep -v string()
+
+grep display the matching pattern only and NOT the entire line
+grep -o pattern
 
 GIT#
 ###############################################################
@@ -495,7 +612,7 @@ git push origin :newfeature
 Git do a diff with HEAD
 git diff HEAD
 
-Git diff with a remote repo
+Git diff with a remote repo / github
 git diff DATA-1724 gerrit/master
 
 Git do a diff with a particular branch
@@ -558,3 +675,39 @@ git stash --apply
 
 Git show history of the file
 gitk [filename]
+
+python#
+##########################
+Python read file in string
+txt = open(filename)
+
+Python read file line by line in to a list
+with open('/tmp/data.json') as f:
+    content = f.readlines()
+
+Python iterate through list
+for i in my_list:
+  print "I got %r" % i
+
+Python write string to a file
+f = open('/tmp/myfile', 'w')
+f.write('This is a test\n')
+
+Python write list to a file
+file = open('/tmp/myfile', 'w')
+for item in my_list:
+  print>>file, item
+
+Python string removing trailing space
+text = text.strip()
+
+Python Http get request
+import urllib2
+try:
+  request = urllib2.Request("http://pypy.org/")
+  response = urllib2.urlopen(request).read()
+catch  (urllib2.HTTPError, urllib2.URLError) as e:
+  raise e
+
+Python in line if-else
+foo = 'foo' if True else 'bar'
