@@ -13,7 +13,7 @@ end
 report = Reports::Basic.new(opts[:start_date], opts[:end_date])
 IO.foreach(opts[:log_file]) do |log_line|
   if log_line[/INFO.*path=\/select/]
-    if (Date.parse(report.parse_date(log_line)) >= opts[:start_date])
+    if (opts[:start_date].nil? || Date.parse(report.parse_date(log_line)) >= opts[:start_date])
       puts report.parse_query(log_line).join(" ")
     end
   end

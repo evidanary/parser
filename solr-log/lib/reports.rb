@@ -36,7 +36,8 @@ module Reports
     end
     
     def parse_query(log_line)
-      parse_params(log_line)["q"].first.split(" ")
+      query = parse_params(log_line)["q"].first
+      query.nil? ? [] : query.split(" ")
     end
 
     def parse_date(log_line)

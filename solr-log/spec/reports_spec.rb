@@ -1,4 +1,4 @@
-require_relative 'reports.rb'
+require_relative '../lib/reports.rb'
 require 'date'
 
 describe Reports::Basic do 
