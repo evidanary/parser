@@ -6,8 +6,8 @@ require 'multi_json'
 
 describe "MaliciousActivityTest" do 
   let(:safe_request) { { :q => "ruby read file", :wt => "json" } }
-  let(:dev_base_uri) { "http://127.0.0.1" }
-  #let(:dev_base_uri) { "http://www.greppage.com" }
+  #let(:dev_base_uri) { "http://127.0.0.1" }
+  let(:dev_base_uri) { "http://www.greppage.com" }
   let(:page) { GrepPage.new(dev_base_uri) }
   let(:safe_request_1) { "INFO  - 2015-06-14 22:10:02.371; org.apache.solr.core.SolrCore; [csv] webapp=/solr path=/select/ params={indent=true&q=ruby+read+file&hl.simple.pre=<strong>&hl.simple.post=</strong>&hl.fl=description,command:string&hl.fl=description&wt=json&hl=true} hits=56 status=0 QTime=8 " }
   

@@ -1,713 +1,210 @@
-Ruby#
+VE#
 ###############################################################
-Generate a random string in ruby of length / generate password
-(0...32).map{ [('a'..'z').to_a,('A'..'Z').to_a,(0..9).to_a].flatten[rand(62)] }.join
+Hive Read / Print sequence files
+dfs -text /camus/exec/history/topic/2015-06-16-07-08-14/offsets-m-00000;
 
-Hash select only certain elements
-hash.select {|k,v| k == "i_want_you" }
+Hive Describe / show partition information (e.g. location of underlying folder in hadoop)
+DESCRIBE FORMATTED my_table PARTITION (year=2015,month=03,day=15);
 
-Delete file
-require 'FileUtils'; FileUtils.rm(path_to_image)
+Hive Print columns names / headers in CLI
+SET hive.cli.print.header=true;
 
-Run command multiple times
-3.times {puts "test"}
+Hive show name of current database on CLI prompt
+SET hive.cli.print.current.db=true;
 
-Read file in a string
-str = IO.read(file)
+Hive create database / schema
+CREATE DATABASE test;
 
-Write to a file
-File.open(yourfile, 'w') { |file| file.write("your text") }
+Hive create view
+CREATE VIEW view_name(vw_field1, vw_field2)
+AS SELECT field1, field2 FROM base_table;
 
-Class variable and class instance variable
-@@, @
+Hive lock table
+LOCK TABLE my_table;
 
-Get current directory (Dir.pwd or )
-File.expand_path File.dirname(__FILE__)
+Hive lock table partition
+LOCK TABLE my_table partition(dt='2015-05-06');
 
-Read file in memory
-f = File.open("my/file/path", "r") f.each_line do |line| puts line end f.close
+Hive unlock table
+UNLOCK TABLE my_table;
 
-ruby loops
-while, for, until, break, redo and retry
+Hive unlock partition
+UNLOCK TABLE my_table partition(dt='2015-05-06');
 
-uninstall a gem
-gem uninstall gem_name --version 1.1.9
+Hive rename table
+ALTER TABLE table_name RENAME TO new_table_name
 
-Date Range
-(Date.new(2014,5,1)..Date.new(2014,10,1)).each {|x| puts x}
+Hive add column to a table
+ALTER TABLE my_table ADD new_column string;
 
-Read file line by line without loading in memory (for large files)
-IO.foreach("testfile") {|x| print "GOT ", x }
+Hive rename column
+ALTER TABLE my_table CHANGE old_column new_column string;
 
-Inject something
-[1, 2, 3, 4].inject(0) { |result, element| result + element } # => 10
+Hive default CLI log file location
+/tmp/nameofuser
 
-Strftime to format time
-Time.now.strftime("%b %d %Y")
+Hive select where contain a regex like
+SELECT * FROM table WHERE field RLIKE 'REGEX'
 
-Path of looking at directories files when requiring external files/classes
-$:
+Hive Check version of client running
+ps -aux | grep -i "hive"
 
-Add something to the beginning of the array
-["a","b"].unshift('gen-rb')
+Hive create table example
+CREATE TABLE my_table(id int, val string) 
+COMMENT 'my table!' 
+PARTITIONED BY (dt string)
 
-Add something to the end of the array
-["a","b"].push('gen-rb')
+Hive create table as (CTAS)
+CREATE TABLE my_table(id int) AS SELECT id from other_table;
 
-Run shell command
-%x[cmd] = run shell cmd
+Hive Drop table partition
+ALTER TABLE my_table DROP PARTITION (partition_field = 'partition_value',...);
 
-multiline string
-%q[string]
+Hive Drop multiple partitions
+ALTER TABLE foo DROP PARTITION(ds < 'date');
 
-multi-line string with substitution for #{}
-%Q[string]
+Hive Insert into partition / add partition
+INSERT INTO my_table PARTITION (dt='2014-01-01')
+SELECT * from ...;
 
-Ruby gem install a particular version
-gem install fog -v 1.8
+Hive add partition to external table
+ALTER TABLE my_table ADD PARTITION (dt='2014-01-29') location 'hdfs:///asfd';
 
-Ruby gems use a particular version in your script
-require 'ruby-oci8', '=1.0.7'
+Hive load data (file on local(my computer))
+LOAD DATA LOCAL INPATH './my_file.tsv' OVERWRITE INTO TABLE my_table;
 
-Ruby File.open CSV.open modes
-http://ruby-doc.org/core-2.2.2/IO.html#method-c-new-label-IO+Open+Mode
+Hive load data (file in HDFS)
+LOAD DATA INPATH '/somewhere/on/hadoop.tsv'
+OVERWRITE INTO TABLE my_table PARTITION (ds='2014-01-13');
 
-Read JSON in a Hash
-require 'multi_json'; hash = MultiJson.load('{"abc":"def"}')
+Hive prevent accidental dropping of a table
+ALTER TABLE my_table ENABLE/DISABLE NO DROP CASCADE;
 
-Write to CSV File
-CSV.open(filename,"wb") do |csv|
-  csv << ["col1","col2","col3","col4"]
+Hive Describe function
+DESCRIBE FUNCTION EXTENDED function_name;
+
+Hive Show functions
+SHOW FUNCTIONS;
+
+Hive Add jars
+ADD JAR /path/to/jar/on/local;
+
+Hive Add functions / UDFs
+CREATE TEMPORARY FUNCTION nvl AS 'com.company.hive.udf.GenericUDFNVL';
+
+Hive data types
+Numeric: tinyint, smallint, int, bigint, float, double, decimal
+Date / Time: timestamp, date
+Complex: array, map<key, value>, struct, union
+
+Add multiple partitions to a HIVE external table (ruby / irb)
+(Date.new(2015,2,20)..Date.new(2015,6,12)).each do |x|
+   puts "alter table your_hive_table add partition (#{x.strftime('year=%Y,month=%m,day=%d')}) location 'hdfs:///hdfs/folder/#{x.strftime('%Y/%m/%d')}';"
 end
 
-UNIX#
-###########################
-shell script echo every command run
-set -x
+Hive truncate table
+TRUNCATE TABLE my_table;
 
-shell script abort when any command fails
-set -e
+Hive recover partitions for "non-external" tables
+MSCK REPAIR TABLE my_table;
 
-show current locale
-locale
+Hive list of databases
+SHOW DATABASES;
 
-show installed locales
-locale -a
+Hive list all tables in current database
+SHOW TABLES;
 
-change locale in ubuntu
-export LANG="en_US.UTF-8"; export LC_ALL="en_US.UTF-8"
+Hive run query from command line
+hive -e "SELECT * from table;"
 
-ascii table
-http://web.cs.mun.ca/~michael/c/ascii-table.html
+Hive run query from from file
+hive -f "SELECT * from table;"
 
-cp multiple files/folders
-cp -r {file1,file2,file3} /dest/dir
+Hive CLI run bash command
+!cat /tmp/file.txt
 
-Host file location
-cat /etc/hosts
+Hive show all variables
+SET;
 
-cli skip one word backward
-Alt + B
+Hive if syntax
+if(boolean testCondition, T valueTrue, T valueFalseOrNull)
 
-cli skip one word forward
-Alt + F
+Hive convert unix timestamp to a date in specified format
+from_unixtime(unix_timestamp_field,'yyyy-MM-dd')
 
-cli delete to the end of line
-Ctrl + K
+Hive convert unix timestamp to a date in MySQL format e.g. 1970-01-01 00:00:00
+from_unixtime(unix_timestamp_field)
 
-cli delete to the beginning of line
-Ctrl + U
+Hive get current unix timestamp in seconds
+unix_timestamp()
 
-cli delete till end of the word
-Alt + D
+Hive number of days from start to end date / datediff
+datediff('2009-03-01', '2009-02-27') = 2
 
-Set variable in shell script as output of command
-var=`date +d`
+Hive add days to a date
+date_add('2008-12-31', 1)
 
-generate ssh keys
-https://help.github.com/articles/generating-ssh-keys/
+Hive subtract days from a date
+date_sub('2008-12-31', 1) 
 
-Show calendar
-cal 2015
+Hive change timezone of a timestamp that is in UTC
+from_utc_timestamp('1970-01-01 08:00:00','PST') 
 
-Geolocate an IP Address
-curl ipinfo.io/<ipaddress>
+Hive change timezone to UTC of a timestamp that is in a different timezone
+to_utc_timestamp('1970-01-01 00:00:00','PST')
 
-Compare/diff directories
-diff --suppress-common-lines -y <(cd path_to_dir1; find .|sort) <(cd path_to_dir2; find .|sort)
+Hive current date / timestamp
+current_date / current_timestamp
 
-Case insensitive search in less
--i
+Hive check if null
+isnull(a)
 
-Less go to end of file and follow (like tail)
-Shift + F
+Hive case statement
+CASE a WHEN b THEN c WHEN d THEN e ELSE f END
 
-unix shell loops
-for i in {1..100} ; do echo "dev.you.sometext:857|c" | nc -w 1 -u -v graphite0.dev.0.aws.myorg.com 8125 ; done
+Hive greatest value, compare values
+greatest(v1, v2, ...)
 
-Send a packet over udp using Netcat
-(echo "GET / HTTP/1.0" ; echo "Host: example.com" ; echo) | nc -w 1 -v example.com 80
+Hive lowest value, compare values
+lowest(v1, v2, ...)
 
-Receive packets over udp/tcp on port 8125
-nc -l -v 8125
+Hive function for concatenate strings
+concat(‘foo’, ‘bar’, ...) ;
 
-Listen for outgoing UDP packets on a local port
-sudo ngrep -W byline -d en3 . udp port 8125 > /tmp/capture.txt
+Hive function for position of first occurrence in string
+instr(string str, string substr)
 
-GNU Screen copy mode
-Ctrl + A, ESC, Use Arrow Keys
+Hive function for size / length of a string
+length("str") ; 
 
-Find the number of fields/number of columsn/ number of tabs in a line
-cat /tmp/delme.txt |  egrep -o -E $'\t' | wc -l  == wc -l /tmp/delme.txt * cat /tmp/delme.txt | head -1 |  egrep -o -E $'\t' | wc -l
+Hive function to lowercase / uppercase a string
+lower(string A) or upper(string A)
 
-Search and display only matched regular expression case insensitive
-cat /tmp/delme | egrep -io "execute_count=\d+$" | uniq
+Hive function to capitalize first letter of every word / name capitalization
+initcap("test str") -- => Test Str
 
-Find the number of columns for the entire file (should always return one value)
-cat ~/Downloads/tmo_2013_10_valid.csv | sed 's/[^\|]//g' | awk '/./ {print NR, length }' | cut -d ' ' -f2 | uniq
+Hive function to calculate distance between two strings levenshtein
+levenshtein(string A, string B)
 
-Find the number of columns
-awk -F "," '{print NF}' uniqMovie.csv | head -1
+Hive function to trim / strip spaces from string
+trim ("  str  ") or ltrim("   str") or rtrim("str   ")
 
-shell date with hours minutes and seconds
-date +%Y_%m_%d_%H%M%S
+Hive function to split a string by regex pattern(returns array)
+split(string str, string pattern)
 
-shell date diff
-date --date="222 days ago" +%Y%m%d
+Hive function to substring a field / column
+substr(string, int start, int len);
 
-Install GNU Parallel
-(wget -O - pi.dk/3 || curl pi.dk/3/) | bash
+Hive parse JSON field using Json tuple and lateral view
+{"id": "12345", "field1": "text", "field2": "text"}
+SELECT a.field1, a.field2 FROM my_table
+lateral view json_tuple(a.raw, 'field1', 'field2')a as field1, field2;
 
-GNU Parallel
-cat listofthings.txt | parallel --max-procs=8 --group 'echo "Thing: {}"'
+Hive parse json string
+{"id": "12345", "field1": { "inner1": "text"}}
+SELECT get_json_object(my_tbl.event_data, '$.field1.inner1') from my_string_table;
 
-System Level Global Variable in Unix (like export var=xx but for all users): add to file
-/etc/environment
+Hive comment a line (only works in scripts)
+-- my comment
 
-Create a passwordless sudo access for user yash: in /etc/sudoers
-yash         ALL = (ALL) NOPASSWD: ALL
 
-Create a passwordless ssh access to your machine:
-Make sure to add the public key of the box you are connecting from to the authorized_keys
- file in ~/.ssh/
-
-Rsync copy files from local server to remote
-rsync -avzhe ssh backup.tar --exclude='.git' root@remote_server:/path/to/dir
-
-Rsync copy files from remote server to local
-rsync -avzhe ssh backup.tar --exclude='.git' root@remote_server:/path/to/dir
-
-List Ip Tables
-sudo iptables -L
-
-Add someone to sudoers file
-visudo
-
-Log of mail sent from a server using the mail command
-tail -f /var/log/mail.log
-
-Generate random number
-echo $RANDOM
-
-Get the filename from the file path
-basename /home/yash/xman.h
-
-list details of file/folder (stuff you see in ls)
-stat /tmp
-
-tcpdump take dump of packets tcp
-http://www.danielmiessler.com/study/tcpdump/
-
-Crontab Cron: Run every x minutes
-*/x * * * * /path/to/script
-
-Crontab syntax for schedule
-*  *  *  *  * where order is min(0-59), hour(0-23), day of month(1-31), month(1-12), day of week(0-6 where Sunday=0)
-
-Crontab syntax for every other hour
-0 */2 * * *
-
-Power top
-top - show list of processes - Press F to sort
-
-top Dump output of top to stdout once
-top -b -n 1
-
-top Dump output of top to stdout once with full commands
-top -c -b -n 1
-
-top Monitor certain pids
-top -p <pid1>, <pid2>
-
-top monitor processes for a user
-top -U username
-
-show list of processes
-nmon
-
-Print all open file handles on a file
-sudo lsof name/of/file
-
-Zsh unix search command history
-Ctrl + r , type the keyword and keep hitting Ctrl + r to go futher in the search
-
-Shell script echo commands as your execute every line
-#!/bin/bash -x
-
-Kill only pids containing a string
-pkill -f <string>
-
-Shell script exit when one command in a script fails
-#!/bin/bash -e
-
-Create file of size x bytes (binary)
-dd if=/dev/zero of=/path/to/desired/big/file count=1024
-
-Run last command with sudo
-sudo !!
-
-Secure copy scp multiple files from a remote host
-scp your_username@remotehost.edu:~/\{foo.txt,bar.txt\} .
-
-Secure copy scp multiple files from a remote host with ranges
-scp your_username@remotehost.edu:~/foo_00{1..6} . # copies foo_001, foo_002, fo.., foo_006
-
-Split a file in to multiple files and tar
-tar -cvf - <stuff to put in archive> | split --bytes=1m --suffix-length=4 --numeric-suffix - myarchive.tar.
-
-Merge the output of split - multiple files
-cat arch/dw-master.tar.* | tar xvf -
-
-Amount of RAM on a box in gigabytes
-free -mg
-
-paste the argument of the previous command
-ESC + .
-
-
-Unix signal SIGINT Ctrl-C
-The SIGINT signal is sent to a process by its controlling terminal when a user wishes to interrupt the process. This is typically initiated by pressing Control-C, but on some systems, the "delete" character or "break" key can be used.[3]
-
-Unix signal SIGTERM
-The SIGTERM signal is sent to a process to request its termination. Unlike the SIGKILL signal, it can be caught and interpreted or ignored by the process. This allows the process to perform nice termination releasing resources and saving state if appropriate. It should be noted that SIGINT is nearly identical to SIGTERM.
-
-Unix signal SIGKILL
-The SIGKILL signal is sent to a process to cause it to terminate immediately (kill). In contrast to SIGTERM and SIGINT, this signal cannot be caught or ignored, and the receiving process cannot perform any clean-up upon receiving this signal.
-
-Unix signal SIGQUIT Ctrl-D
-The SIGQUIT signal is sent to a process by its controlling terminal when the user requests that the process quit and perform a core dump.
-
-Unix signal SIGHUP
-The SIGHUP signal is sent to a process when its controlling terminal is closed. It was originally designed to notify the process of a serial line drop (a hangup). In modern systems, this signal usually means that the controlling pseudo or virtual terminal has been closed.[2]
-
-Unix signal SIGSTP Ctrl-Z
-Suspends a process. This too, can be handled, ignored or blocked. Since it does not terminate the process, the process can be resumed by sending a SIGCONT signal. This signal can be generated by pressing Ctrl+Z. (Sidenote: Ctrl+Z stands for substitute character which indicates End-of-File in DOS)
-
-Find files with regex
-find . -path '.*/config.xml' | grep <search_string>
-
-remove files older than 5 days on unix
-find /my_current_directory -mtime +5 -type f -delete
-
-print files modified in the last 24 hours
-find /directory_path -type f -mtime -1 -print
-
-monitor cpu memory and other shit
-nmon
-
-Free resident set size (rss res) memory on a server
-free -g
-
-unix linux ubuntu get stats on what the pid is doing
-strace -p PID
-
-Count number of forks a application makes
-sudo strace -o /tmp/strace.log -fFv  python -m SimpleHTTPServer 8283
-
-Sum numbers
-numbers | awk '{s+=$0} END {print s}'
-
-awk print lines from line number x onwards
-awk 'NR > x' name/of/file
-
-print limit of open file handles
-ulimit -a
-
-list all packages ubuntu
-dpkg -l
-
-which user are you logged in as
-whoami
-
-what users are logged in the box
-who
-
-List open ssh connections to a server
-Try netstat -atn | grep ':22'
-
-ssh default port is port 22
-
-Get all host names of a particular server
-nslookup server_host.com
-
-Create simple http server on a port
-python -m SimpleHTTPServer 8000
-
-Set up ssh tunnel from localhost:8000 to remote:8888
-ssh -N root@remote_server -L 8000:localhost:8888
-
-Syslog location
-cat /var/log/syslog
-
-Get encoding of a file
-file -i name_of_file
-
-ID of the user as recognized by the system
-id root
-
-Get user and group of the user
-id -Gn username
-
-List users that can ssh
-cat /etc/ssh/sshd_config
-
-Mount a directory on remote
-First, sudo mkdir /local/mount/point/directory Then, sudo mount ServerIP:/folder/already/setup/to/be/shared /loca/mount/point/directory
-
-To make a permanent mount add the following to /etc/fstab
-servername:dir /mntpoint nfs rw,hard,intr 0 0
-
-List all mounted devices (< partition >< mount point >< file system >< mount options >< dump >< fsck order >)
-cat /etc/mtab
-
-List all mounted/unmounted devices
-cat /etc/fstab
-
-Show devices that use this host
-showmount -a
-
-NFS
-export, exportfs
-
-check if a port is open on a remote server
-telnet host port_number or nc -vz -w 2 database-box-1.internal.com 27017
-
-Add sudo user
-visudo then add the following line: user ALL=(ALL) ALL
-
-list all the users in unix
-cat /etc/passwd
-
-make sub directories when necessary
-mkdir -p path/to/directory
-
-export a env variable
-export PATH=$PATH:/opt/bin:/usr/local/bin:$HOME/bin
-
-show environment variables
-env
-
-Export a environment variable to all user
-modify /etc/profile
-
-Print name of shell you are using
-echo $0
-
-Get the current pid of the session
-$$
-
-GZIP TAR - compress a directory
-tar -zcvf dest_file.tar.gz /folder/to/compress
-
-To restore file
-tar -zxvf dest_file.tar.gz [file/path/to/decompress]
-
-Generate a random password 16 characters
-pwgen 16
-
-Create symlink symbolic link
-ln -s /path/to/file-name link-name
-
-List all open ports
-netstat -lnptu
-
-Set unix path environment variable
-export GRADLE_HOME=/Users/yasha/Software/gradle-1.1
-
-Create User / password
-useradd -m tom; passwd tom
-
-Add existing user to a group
-usermod -G grpname uname
-
-in ~/.bashrc
-alias ls='ls -lartSh'
-
-Find the unix linux distro operating system
-cat /etc/*-release OR lsb_release -a
-
-Find the if 64 or 32 bit
-uname -a
-
-Find the
-List of unix group users
-cat /etc/group
-
-Change owner and group recursive
-chown -R username:groupname <name_of_dir>
-
-Change Permission Recursive
-chmod -R 775 folder_name where 775 is (user, group, other)
-
-Show the Processlist
-ps -ef | grep -i "yash"
-
-Octal Dump
-cat file | od -cb
-
-FTP
-ftp ftp://username:password@ftp.host.com
-
-Get IP Address of the current system
-/sbin/ifconfig | less
-
-Get IP address
-ip -f inet a | awk '/inet / { print $2 }' or ifconfig | sed -n 's/.*inet addr:\([0-9.]\+\)\s.*/\1/p'
-
-UNIX COMMENT:
-: <<'COMMENT'
-stuff inside is commented
-COMMENT
-
-Change Password
-passwd
-
-the file encoding
-file <nameoffile> or file -I <nameoffile>
-
-Find files
-find -name 'name_of_file'
-
-Find in files text
-grep -R yourstring /path/to/dir or find . -exec grep "www.athabasca" '{}' \; -print
-
-Find on all disks
-find / -name file.extension
-
-Find files using regular expressions. this will find files in dir ./chunker_somestring/lastSuccessful
-find -regex ".*chunker.*/lastSuccessful" | xargs grep -r -i string_to_grep
-
-Inline calculator in shell
-echo "2/3" | bc
-
-Linux Directory Structure
-http://linuxcommand.org/lts0040.php#root
-
-Show the bottom of the log file and refresh
-tail -f filename
-
-To get the nth line of a file
-head -45 foo.txt | tail -1
-
-Convert DOS to UNIX dos2unix file csv
-tr '\r' '\n' < delme.csv > out.csv
-
-Daemon services using init.d
-service --status-all
-sudo service name_of_serive start/stop/restart
-
-See if a upstart service is running
-status name_of_service
-
-Start upstart service
-sudo start name_of_service
-
-Stop upstart service
-sudo stop name_of_service
-
-upstart list all services
-initctl list
-
-List space occupied by directories in current directory:
-du -sk *
-
-List space global:
-df -k
-
-Apply a certain rule on a certain type of file:
-find . -name "*.bak" -print0 | xargs -0 -I file mv file ~/old.files
-
-find and replace in unix
-sed -i 's/source/target/g' nameoffile
-
-find and replace in Mac OSX
-sed -i '' 's/source/target/g' nameoffile
-
-grep the regex pattern
-grep -e pattern
-
-grep perform case insensitive matching
-grep -i string
-
-grep display the line numbers
-grep -n string
-
-grep display the non matching lines
-grep -v string()
-
-grep display the matching pattern only and NOT the entire line
-grep -o pattern
-
-GIT#
-###############################################################
-Git checkout tag
-git checkout tags/<tag>
-
-git remove a file from the index (will undo addition to the index)
-git reset HEAD <file>
-
-git show commits with abbreviated hash
-git log --pretty=format:"%h %an %s"
-
-git show commits for a branch
-git log --first-parent --no-merges
-
-git log show file names that have been modified
-git log --name-status
-
-git config -l
-and look at the line starting with 'remote.origin.url'. To switch your protocol
-git config remote.origin.url git@github.com:your_username/your_project.git
-
-Git Squash Commit (prefix every line to squash with s)
-git rebase -i master
-
-Git show remotes
-git remote -v show
-
-Git ammend a previous commmit
-git commit --amend
-
-Git remote add a new upstream
-git remote add upstream yourrepo.git
-
-Git branches
-https://github.com/Kunena/Kunena-2.0/wiki/Create-a-new-branch-with-git-and-manage-branches
-
-Git create a branch
-git branch name_of_branch
-
-Git rename a branch
-git branch -m old_branch new_branch
-
-Git push to branch
-git push origin <branch name>
-
-Git Delete Branch
-git branch -D <branch name>
-
-Git delete branch from remote
-git push origin :newfeature
-
-Git do a diff with HEAD
-git diff HEAD
-
-Git diff with a remote repo / github
-git diff DATA-1724 gerrit/master
-
-Git do a diff with a particular branch
-git difftool somebranch:UNREADME otherbranch:README
-
-Git diff with a previous commit
-git diff 5cdfs6ed HEAD index.html
-
-Git reset to head
-git reset --hard HEAD
-
-Git checkout previous commit
-git checkout 1dcf2d
-
-Git undo changes to a file not staged for commit
-git checkout -- filename
-
-Git merge branch to master
-git checkout master
-git merge branchname
-
-Git show list of branches
-git branch
-
-Git Create branch
-git branch branchname
-
-Git Remove a branch from local
-git branch -D branchname
-
-Git Delete branch from github
-git push origin --delete <branchName>
-
-Git reset to a previous state
-git reset --hard to reset to a previous state. Use the git-reflog command to find the SHA-1 of the previous state and then reset to it.
-
-Git merge only certain files from a separate branch
-git checkout branchname pathtofile1 pathtofile2
-
-Git revert to a previous commit
-http://stackoverflow.com/questions/4114095/git-revert-to-previous-commit-how
-
-Git stash
-git stash
-
-To list the stash
-git stash list
-
-Git show log with file names that changed
-git log --stat
-
-Git show changes for a specific branch only
-git log master..
-
-Git cat a previous version
-git show HEAD:name_of_file
-
-TO apply your changes
-git stash --apply
-
-Git show history of the file
-gitk [filename]
-
-python#
-##########################
-Python read file in string
-txt = open(filename)
-
-Python read file line by line in to a list
-with open('/tmp/data.json') as f:
-    content = f.readlines()
-
-Python iterate through list
-for i in my_list:
-  print "I got %r" % i
-
-Python write string to a file
-f = open('/tmp/myfile', 'w')
-f.write('This is a test\n')
-
-Python write list to a file
-file = open('/tmp/myfile', 'w')
-for item in my_list:
-  print>>file, item
-
-Python string removing trailing space
-text = text.strip()
-
-Python Http get request
-import urllib2
-try:
-  request = urllib2.Request("http://pypy.org/")
-  response = urllib2.urlopen(request).read()
-catch  (urllib2.HTTPError, urllib2.URLError) as e:
-  raise e
-
-Python in line if-else
-foo = 'foo' if True else 'bar'

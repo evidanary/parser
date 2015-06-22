@@ -13,7 +13,7 @@ class FreeTextParser
     classes = []
     classes << :visual_separator if line[/^\#{3,}$/]
     classes << :ends_with_hash_character if line[/\w+\#$/]
-    classes << :blank_line if line[/^$/]
+    classes << :blank_line if line.strip[/^$/]
     classes << :text_line if line[/\S+/]
 
     classes
