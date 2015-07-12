@@ -10,7 +10,18 @@ class Run
     @filein = filein
   end
 
-
+  # e.g. hdfs# should be converted to hdfs
+  def remove_special_characters(input) 
+    removal_regex = /[^[a-zA-Z0-9_ ]]/
+    normalize_space_regex = /\s+/
+    input.gsub(removal_regex,'').gsub(normalize_space_regex, ' ').strip
+  end
+  
+  # e.g. hdfs hdfs streaming should be "hdfs streaming"
+  def remove_repeating_words(input) 
+    input.downcase.split(" ").uniq.join(" ")
+  end
+ 
   def run_yash_model
     parser = FreeTextParser.new
     model = YashCheatSheetParseModel.new(parser)
@@ -35,9 +46,10 @@ class Run
       parser.result_cheat_array.each_with_index do |cheat,idx|
         cheat_hash = {}
 	cheat_hash[:id] = [idx, cheat.category].join || ""
-        cheat_hash[:section] = cheat.category || ""
+        cheat_hash[:section] = remove_special_characters(cheat.category) || ""
         cheat_hash[:description] = cheat.description || ""
         cheat_hash[:command] = cheat.command.join("\n") || ""
+	cheat_hash[:textSuggest] = remove_repeating_words([cheat_hash[:section], cheat_hash[:description]].join(" "))
 	
 	cheat_hash_array << cheat_hash
       end

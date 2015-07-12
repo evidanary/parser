@@ -9,7 +9,7 @@ describe "MaliciousActivityTest" do
   #let(:dev_base_uri) { "http://127.0.0.1" }
   let(:dev_base_uri) { "http://www.greppage.com" }
   let(:page) { GrepPage.new(dev_base_uri) }
-  let(:safe_request_1) { "INFO  - 2015-06-14 22:10:02.371; org.apache.solr.core.SolrCore; [csv] webapp=/solr path=/select/ params={indent=true&q=ruby+read+file&hl.simple.pre=<strong>&hl.simple.post=</strong>&hl.fl=description,command:string&hl.fl=description&wt=json&hl=true} hits=56 status=0 QTime=8 " }
+  let(:safe_request_1) { "INFO  - 2015-06-14 22:10:02.371; org.apache.solr.core.SolrCore; [csv] webapp=/solr path=/select/ params={indent=true&q=hive&hl.simple.pre=<strong>&hl.simple.post=</strong>&hl.fl=description,command:string&hl.fl=description&wt=json&hl=true} hits=56 status=0 QTime=8 " }
   
   describe 'test if server returns good queries' do
     let(:response) { page.get(safe_request) }
@@ -26,7 +26,7 @@ describe "MaliciousActivityTest" do
     let(:unsafe_request) { { :wt => "json"} }
  
     it "returns 10 rows for requesting more than 10 rows" do
-      unsafe_request[:q] = "ruby"
+      unsafe_request[:q] = "hive"
       unsafe_request[:rows] = 11
       expect(rows_received(unsafe_request)).to eq(10)
     end
